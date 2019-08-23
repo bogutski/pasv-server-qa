@@ -1,3 +1,3 @@
 ### PASV server QA
 
-Create folder, your `name lastname` 
+Create folder, your `Sergei Latyshev` 
