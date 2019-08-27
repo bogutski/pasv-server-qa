@@ -1,0 +1,4003 @@
+{
+	"info": {
+		"_postman_id": "20e5639f-2646-446b-b8a9-ff28b859452d",
+		"name": "PASV",
+		"description": "For repo https://github.com/bogutski/pasv-server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ANALYTICS",
+			"item": [
+				{
+					"name": "Get by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/analytics/5d53819b5351f97a81ede9b9",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"analytics",
+								"5d53819b5351f97a81ede9b9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BACKUP",
+			"item": [
+				{
+					"name": "Backup Dump",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/backup/dump",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"backup",
+								"dump"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "Backup Restore",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/backup/restore",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"backup",
+								"restore"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GROUP COMMON",
+			"item": [
+				{
+					"name": "LECTURE",
+					"item": [
+						{
+							"name": "Create Lecture",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Lecture 1\",\n\t\"video\": \"https://youtu.be/bGWe54az254\",\n\t\"active\": false,\n\t\"groupId\": \"5baeb560902190562709dd66\",\n\t\"date\": \"11.17.2018\",\n\t\"description\": \"Some text\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/lecture",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"lecture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Understood Lecture",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"groupId\": \"5bc0185bd4006d3caf2bd07f\",\n\t\"userId\": \"5bd9f504d1e94500394363ad\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/lecture/5bef2e5c0347e90f56785c5c/understood",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"lecture",
+										"5bef2e5c0347e90f56785c5c",
+										"understood"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unlink Group and User",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"groupId\": \"5bc0185bd4006d3caf2bd07f\",\n\t\"userId\": \"5b7366b42ffb85d6053b8649\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/group/unlink/user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"group",
+										"unlink",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Group",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"----3-----\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ]\n}"
+								},
+								"url": {
+									"raw": "{{host}}/group/5baeb560902190562709dd66",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"group",
+										"5baeb560902190562709dd66"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Lecture",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/lecture/5baeaa0cb249d754b7bf15ea",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"lecture",
+										"5baeaa0cb249d754b7bf15ea"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Lectures",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/lecture",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"lecture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/lecture/5bef2e5c0347e90f56785c5c",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"lecture",
+										"5bef2e5c0347e90f56785c5c"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/group/5bc0185bd4006d3caf2bd07f",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"group",
+										"5bc0185bd4006d3caf2bd07f"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a56660cc-3699-441a-a595-97b39c517ec5",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "cd0b64df-07ef-49f7-8d98-7b85eec9c90c",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Link User",
+					"item": [
+						{
+							"name": "Link Group and User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"groupId\": \"5bc0185bd4006d3caf2bd07f\",\n\t\"userId\": \"5bd9f504d1e94500394363ad\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/group/link/user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"group",
+										"link",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unlink Group and User",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"groupId\": \"5bc0185bd4006d3caf2bd07f\",\n\t\"userId\": \"5b7366b42ffb85d6053b8649\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/group/unlink/user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"group",
+										"unlink",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Link Question Group",
+					"item": [
+						{
+							"name": "Link Question Group and User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"groupId\": \"5bc0185bd4006d3caf2bd07f\",\n\t\"questiongroupId\": \"5be381489cf130234a5aabe5\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/group/link/questiongroup",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"group",
+										"link",
+										"questiongroup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unlink Group and User",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"groupId\": \"5bc0185bd4006d3caf2bd07f\",\n\t\"questiongroupId\": \"5c6235ebf58dc7e8179e0eeb\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/group/unlink/questiongroup",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"group",
+										"unlink",
+										"questiongroup"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "049d1beb-178c-4e56-84ec-124f830e990b",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "dbc0113b-d590-4a48-995e-e5cc57be7761",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Create Group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"HELLO 1\",\n\t\"description\": \"\",\n\t\"accessType\": \"members\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/group",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Group",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"QA 3\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ],\n     \"questionGroups\": [\n     \t\"5be381489cf130234a5aabe5\"\n     \t],\n    \"slackWebhook\": \"QWE/IUY123\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/group/5baeb560902190562709dd66",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group",
+								"5baeb560902190562709dd66"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Group",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/group/5baeaa0cb249d754b7bf15ea",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group",
+								"5baeaa0cb249d754b7bf15ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Groups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/group",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/group/5c64bac343e60a0038a210a9",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group",
+								"5c64bac343e60a0038a210a9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group By Id Full",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/group/full/5c64bac343e60a0038a210a9",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group",
+								"full",
+								"5c64bac343e60a0038a210a9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FLASH",
+			"item": [
+				{
+					"name": "GROUP",
+					"item": [
+						{
+							"name": "Create FlashCard Group",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"FC 200\",\n\t\"description\": \"Some Flash 200 Card description\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/flashcard/group",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flashcard",
+										"group"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Group",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"QA 3\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ],\n     \"questionGroups\": [\n     \t\"5be381489cf130234a5aabe5\"\n     \t],\n    \"slackWebhook\": \"QWE/IUY123\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/flashcard/group/5baeb560902190562709dd66",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flashcard",
+										"group",
+										"5baeb560902190562709dd66"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Group",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/flashcard/group/5baeaa0cb249d754b7bf15ea",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flashcard",
+										"group",
+										"5baeaa0cb249d754b7bf15ea"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Groups",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/flashcard/group",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flashcard",
+										"group"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Group By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/flashcard/group/5c64bac343e60a0038a210a9",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flashcard",
+										"group",
+										"5c64bac343e60a0038a210a9"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CARD",
+					"item": [
+						{
+							"name": "Get by Status and Group Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/flash/card/status/!approved/group/5d48db6111b0fc179aca6444",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flash",
+										"card",
+										"status",
+										"!approved",
+										"group",
+										"5d48db6111b0fc179aca6444"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create FlashCard Group",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"FC 200\",\n\t\"description\": \"Some Flash 200 Card description\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/flashcard/group",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flashcard",
+										"group"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Status",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"status\": \"blocked\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/flash/card/5d48e33691340e199a4ed97a/status",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flash",
+										"card",
+										"5d48e33691340e199a4ed97a",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Group",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"QA 3\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ],\n     \"questionGroups\": [\n     \t\"5be381489cf130234a5aabe5\"\n     \t],\n    \"slackWebhook\": \"QWE/IUY123\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/flashcard/group/5baeb560902190562709dd66",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flashcard",
+										"group",
+										"5baeb560902190562709dd66"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Group",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/flashcard/group/5baeaa0cb249d754b7bf15ea",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flashcard",
+										"group",
+										"5baeaa0cb249d754b7bf15ea"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Random Card from Group By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/flash/card/random/group/5d4a635a2b69530038877491",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"flash",
+										"card",
+										"random",
+										"group",
+										"5d4a635a2b69530038877491"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e2a30b-184c-428b-b036-1c1926577c6d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "da029559-8e13-47b3-bb45-38bec0eb1bd2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "COURSE COMMON",
+			"item": [
+				{
+					"name": "SECTION",
+					"item": [
+						{
+							"name": "Reorder Sections in Course",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n\t\"5c31c5300ea7dab6ce9ebe03\",\n\t\"5c31c58a0ea7dab6ce9ebe04\"\n]"
+								},
+								"url": {
+									"raw": "{{host}}/course/5c140b2b42f6ea23059cbe8f/section/reorder",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"5c140b2b42f6ea23059cbe8f",
+										"section",
+										"reorder"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reorder lectures in Section",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n\t\"5c31c5300ea7dab6ce9ebe03\",\n\t\"5c31c58a0ea7dab6ce9ebe04\"\n]"
+								},
+								"url": {
+									"raw": "{{host}}/course/5c140b2b42f6ea23059cbe8f/section/reorder",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"5c140b2b42f6ea23059cbe8f",
+										"section",
+										"reorder"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "COURSE",
+					"item": [
+						{
+							"name": "Create Course",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Course 1\",\n\t\"description\": \"Some text\",\n\t\"accessType\": \"all\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/course",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Calculate Course Progress",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"courseId\": \"5c140b2b42f6ea23059cbe8f\",\n\t\"userId\": \"5b7366b42ffb85d6053b8649\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/course/progress/calculate",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"progress",
+										"calculate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Courses",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/course",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Course By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/course/5cda5afc0f34794cc95c0442",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"5cda5afc0f34794cc95c0442"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Course By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/course/view/5cda5afc0f34794cc95c0442",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"view",
+										"5cda5afc0f34794cc95c0442"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "COURSE PROGRESS",
+					"item": [
+						{
+							"name": "Get Course Progress By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/course/5c140b2b42f6ea23059cbe8f/progress",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"5c140b2b42f6ea23059cbe8f",
+										"progress"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Course Progress",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n}"
+								},
+								"url": {
+									"raw": "{{host}}/course/5c140b2b42f6ea23059cbe8f/progress",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"5c140b2b42f6ea23059cbe8f",
+										"progress"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Group",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"----3-----\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ]\n}"
+								},
+								"url": {
+									"raw": "{{host}}/group/5baeb560902190562709dd66",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"group",
+										"5baeb560902190562709dd66"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Courses",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/course",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7e6fee2d-9393-482e-b867-40b1265f3002",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "12444f3e-0d93-4ab8-8816-c9390827911d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "LESSON",
+					"item": [
+						{
+							"name": "CHALLENGE",
+							"item": [
+								{
+									"name": "CW get challenge",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://www.codewars.com/api/v1/code-challenges/50ee6b0bdeab583673000025",
+											"protocol": "https",
+											"host": [
+												"www",
+												"codewars",
+												"com"
+											],
+											"path": [
+												"api",
+												"v1",
+												"code-challenges",
+												"50ee6b0bdeab583673000025"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "add CW Challenge to Lesson",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{token}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"cwChallengeId\": \"50ee6b0bdeab583673000025\",\n\t\"lessonId\": \"5d1e92c27d51fcb879edda10\"\n}"
+										},
+										"url": {
+											"raw": "{{host}}/course/lesson/challenge/add/cw",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"course",
+												"lesson",
+												"challenge",
+												"add",
+												"cw"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "remove CW Challenge from Lesson",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "{{token}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"cwChallengeId\": \"538948d4daea7dc4d200023f\",\n\t\"lessonId\": \"5d1e92c27d51fcb879edda10\"\n}"
+										},
+										"url": {
+											"raw": "{{host}}/course/lesson/challenge/remove/cw",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"course",
+												"lesson",
+												"challenge",
+												"remove",
+												"cw"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "View by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/course/5d1c4344ac947941cbc8e21e/lesson/5d1e92c27d51fcb879edda10",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"5d1c4344ac947941cbc8e21e",
+										"lesson",
+										"5d1e92c27d51fcb879edda10"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/course/lesson/5cc94fee8fae90697970d13c",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"lesson",
+										"5cc94fee8fae90697970d13c"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Lesson Attempt",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"lessonId\": \"5d1e92c27d51fcb879edda10\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/course/lesson/attempt",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"lesson",
+										"attempt"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "REPORT",
+					"item": [
+						{
+							"name": "Report",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/course/5c140b2b42f6ea23059cbe8f/report",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"5c140b2b42f6ea23059cbe8f",
+										"report"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "COMMENT",
+			"item": [
+				{
+					"name": "Create Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"message\": \"First message 1\",\n\t\"entity\": \"lecture\",\n\t\"entityId\": \"5bff55cfb5a9ee6bb834e59f\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/comment",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Diary",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"----3-----\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ]\n}"
+						},
+						"url": {
+							"raw": "{{host}}/group/5baeb560902190562709dd66",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group",
+								"5baeb560902190562709dd66"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Diary",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/5baeaa0cb249d754b7bf15ea",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"5baeaa0cb249d754b7bf15ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Diaries",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Diary by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/diary/5bc0185bd4006d3caf2bd07f",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"5bc0185bd4006d3caf2bd07f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "de3de94e-6c85-42ec-9ce9-9ba747b97931",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d343f13-be82-4a7f-bbb4-b8c8eb638bf8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "DIARY",
+			"item": [
+				{
+					"name": "Create Diary",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Js28-8\",\n\t\"description\": \"Some text\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/group",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Diary",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"----3-----\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ]\n}"
+						},
+						"url": {
+							"raw": "{{host}}/group/5baeb560902190562709dd66",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group",
+								"5baeb560902190562709dd66"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Diary",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/5baeaa0cb249d754b7bf15ea",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"5baeaa0cb249d754b7bf15ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Diaries",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": " {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Diary by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/diary/5bc0185bd4006d3caf2bd07f",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"5bc0185bd4006d3caf2bd07f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Diaries by User Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/diary/user/5c62042e5b633f00383b0dd5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"user",
+								"5c62042e5b633f00383b0dd5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "de3de94e-6c85-42ec-9ce9-9ba747b97931",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d343f13-be82-4a7f-bbb4-b8c8eb638bf8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "QUIZ",
+			"item": [
+				{
+					"name": "QUESTION",
+					"item": [
+						{
+							"name": "Create Question",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Quiz 200\",\n\t\"description\": \"Quiz Some text\",\n\t\"answerType\": \"single\",\n\t\"variants\": [\n\t\t{ \"name\": \"Ans 10\",\t\"correct\": false },\n\t\t{ \"name\": \"Ans 20\",\t\"correct\": true },\n\t\t{ \"name\": \"Ans 30\",\t\"correct\": true }\n\t],\n\t\"reward\": 2\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/question",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"question"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Question and bind to QG",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Quiz 200 QG\",\n\t\"description\": \"Quiz Some text\",\n\t\"answerType\": \"single\",\n\t\"variants\": [\n\t\t{ \"name\": \"Ans 10\",\t\"correct\": false },\n\t\t{ \"name\": \"Ans 20\",\t\"correct\": true },\n\t\t{ \"name\": \"Ans 30\",\t\"correct\": true }\n\t],\n\t\"reward\": 1\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/question/questiongroup/5bc7c409baf7409d3621f4fc",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"question",
+										"questiongroup",
+										"5bc7c409baf7409d3621f4fc"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Question",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"----3-----\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ]\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/question/5baeb560902190562709dd66",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"question",
+										"5baeb560902190562709dd66"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Question",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/quiz/question/5b5a3de2e624d099a1c5fb7d",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"question",
+										"5b5a3de2e624d099a1c5fb7d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete All Questions",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/quiz/question/all",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"question",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Questions",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/quiz/question",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"question"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Question By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/quiz/question/5bbfc8eb0d8aeb2c275677d8",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"question",
+										"5bbfc8eb0d8aeb2c275677d8"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8edf49c2-1a9a-4144-8333-63dd34cf9e30",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd9091c5-4610-431c-89a4-bbe9e49f4cc3",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "QUESTION GROUP",
+					"item": [
+						{
+							"name": "Create Question Group",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Quiz GR 300\",\n\t\"description\": \"Quiz GR Some text\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/questiongroup",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"questiongroup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Question Group",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"----3-----\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ]\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/questiongroup/5baeb560902190562709dd66",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"questiongroup",
+										"5baeb560902190562709dd66"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Question Group",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/quiz/questiongroup/5bdf74e6d94e791485937d44",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"questiongroup",
+										"5bdf74e6d94e791485937d44"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Question Groups",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/quiz/questiongroup",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"questiongroup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Question Group By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/quiz/questiongroup/5bbfc8eb0d8aeb2c275677d8",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"questiongroup",
+										"5bbfc8eb0d8aeb2c275677d8"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8edf49c2-1a9a-4144-8333-63dd34cf9e30",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd9091c5-4610-431c-89a4-bbe9e49f4cc3",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ANSWER GROUP",
+					"item": [
+						{
+							"name": "Create Answer Group",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"questionGroupId\": \"5bc7c409baf7409d3621f4fc\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/answergroup",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answergroup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Answer Group",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"----3-----\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ]\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/answergroup/5baeb560902190562709dd66",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answergroup",
+										"5baeb560902190562709dd66"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Answer Group",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/quiz/answergroup/5bd610a0a31f6b32772b07a8",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answergroup",
+										"5bd610a0a31f6b32772b07a8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Answer Group",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/quiz/answergroup/reset/5bd610a0a31f6b32772b07a8",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answergroup",
+										"reset",
+										"5bd610a0a31f6b32772b07a8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Answer Groups",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/quiz/answergroup",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answergroup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Answer Group By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/quiz/answergroup/5bbfc8eb0d8aeb2c275677d8",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answergroup",
+										"5bbfc8eb0d8aeb2c275677d8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Score Answer By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/quiz/answergroup/score/5cdfa93e6600fc986397e442",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answergroup",
+										"score",
+										"5cdfa93e6600fc986397e442"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Answer Group By Group Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/quiz/answergroup/group/5baeb560902190562709dd66",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answergroup",
+										"group",
+										"5baeb560902190562709dd66"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Status Answer Group",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Js2\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/answergroup/status",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answergroup",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8edf49c2-1a9a-4144-8333-63dd34cf9e30",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd9091c5-4610-431c-89a4-bbe9e49f4cc3",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ANSWER",
+					"item": [
+						{
+							"name": "Answer Quiz",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"questionId\": \"5bbfc8eb0d8aeb2c275677d8\",\n\t\"variants\": [\n        \"5bbfc8eb0d8aeb2c275677d9\",\n        \"5bbfc8eb0d8aeb2c275677da\"\n    ],\n    \"answerType\": \"multi\",\n\t\"note\": \"user notes about answer\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/answer",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Answers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/quiz/answer",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Answer By Id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"answerGroupId\": \"5bdf852d42d67d17080d2845\", \n\t\"answerId\": \"5bdfe15a1ecfd61c618e355a\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/answer",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Answer By Id Copy",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"answerGroupId\": \"5bdb49b7403ffd0039105034\", \n\t\"answerId\": \"5bdb5d69403ffd003910504a\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/quiz/answer/add/reward",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"quiz",
+										"answer",
+										"add",
+										"reward"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d34f9b37-1ea4-4be0-94f4-322973579c94",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "84c42cb4-897d-4cd4-a86a-2eb64bf8a00c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "INFO",
+			"item": [
+				{
+					"name": "Info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/info",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"info"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6b0d3447-2b46-4bd4-9c44-427c5659fa4e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae02d678-52b1-4c69-bf2e-6d0949c058d9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "SERVICE",
+			"item": [
+				{
+					"name": "Service",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/service",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"service"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6b0d3447-2b46-4bd4-9c44-427c5659fa4e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae02d678-52b1-4c69-bf2e-6d0949c058d9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "MAIL",
+			"item": [
+				{
+					"name": "Mail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/mail",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mail"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6b0d3447-2b46-4bd4-9c44-427c5659fa4e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae02d678-52b1-4c69-bf2e-6d0949c058d9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "RESET PASSWORD",
+					"item": [
+						{
+							"name": "User Reset pass request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dffb3181-7104-49b9-87d7-712d7f3d2b04",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"info@siteograf.com\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/user/password/reset/request",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"password",
+										"reset",
+										"request"
+									]
+								},
+								"description": "Create User"
+							},
+							"response": []
+						},
+						{
+							"name": "User Reset is valid link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dffb3181-7104-49b9-87d7-712d7f3d2b04",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userId\": \"5baf1fcfc4050f68d8b1f039\",\n  \"hash\": \"5c0c57c8680cef5570ad6687-\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/user/password/reset/valid",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"password",
+										"reset",
+										"valid"
+									]
+								},
+								"description": "Create User"
+							},
+							"response": []
+						},
+						{
+							"name": "User Reset password new",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dffb3181-7104-49b9-87d7-712d7f3d2b04",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userId\": \"5baf1fcfc4050f68d8b1f039\",\n  \"hash\": \"5c0c57c8680cef5570ad6687\",\n  \"password\": \"123123\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/user/password/reset/new",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"password",
+										"reset",
+										"new"
+									]
+								},
+								"description": "Create User"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "EMAIL CONFIRM",
+					"item": [
+						{
+							"name": "Email confirm",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/user/verify/email/5c5251611ba2d02122fac689/5c5251611ba2d02122fac68a",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"verify",
+										"email",
+										"5c5251611ba2d02122fac689",
+										"5c5251611ba2d02122fac68a"
+									]
+								},
+								"description": "Create User"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CODEWARS",
+					"item": [
+						{
+							"name": "User Update seff",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"qwe123@qwe.qwe\",\n  \"password\": \"123\",\n  \"codewarsId\": \"Viktor Bogutskii\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user"
+									]
+								},
+								"description": "Create User"
+							},
+							"response": []
+						},
+						{
+							"name": "Update CW all",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/user/update/cw/all",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"update",
+										"cw",
+										"all"
+									]
+								},
+								"description": "Create User"
+							},
+							"response": []
+						},
+						{
+							"name": "Get CW User by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{host}}/user/read/cw/Viktor%20Bogutskii",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"read",
+										"cw",
+										"Viktor%20Bogutskii"
+									]
+								},
+								"description": "Create User"
+							},
+							"response": []
+						},
+						{
+							"name": "Update CW User by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/user/update/cw/5b6a2c0cfdc9bf540a47440b",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"update",
+										"cw",
+										"5b6a2c0cfdc9bf540a47440b"
+									]
+								},
+								"description": "Create User"
+							},
+							"response": []
+						},
+						{
+							"name": "CW get user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://www.codewars.com/api/v1/users/789",
+									"protocol": "https",
+									"host": [
+										"www",
+										"codewars",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"789"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CW get completed tasks",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://www.codewars.com/api/v1/users/Viktor%20Bogutskii/code-challenges/completed?page=0",
+									"protocol": "https",
+									"host": [
+										"www",
+										"codewars",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"Viktor%20Bogutskii",
+										"code-challenges",
+										"completed"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"1231234@gmail.com\",\n  \"password\": \"123123\",\n  \"phone\": \"+170759018667\", \n  \"name\" : \"Test Test\" \n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dffb3181-7104-49b9-87d7-712d7f3d2b04",
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.environment.set(\"token\", data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"5901867@gmail.com\",\n  \"password\": \"A1053Ttt\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "User Update self",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dffb3181-7104-49b9-87d7-712d7f3d2b04",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"5901867@gmail.com\",\n    \"name\": \"Viktor Bogutskiiiqqqaaaaa\",\n    \"phone\": \"+17075901869\",\n    \"links\": {\n        \"linkedIn\": \"https://www.linkedin.com/in/bogutskii\",\n        \"resume\": \"https://docs.google.com/document/d/1KkEO4vyCnR5VNf9y4A5CvQhwMuU5J_JrF0xRdl9F3r4/edit\",\n        \"github\": \"https://github.com/bogutski\",\n        \"facebook\": \"https://www.facebook.com/bogutskiii\",\n        \"codewarsUsername\": \"Viktor Bogutskii\"\n    },\n    \"about\": \"JS developer\",\n    \"goals\": \"1. Create an effective team of teachers to create the best course for training engineers.\",\n    \"englishLevel\": \"Intermediate\",\n    \"roles\": [\"admin\", \"hello4\"]\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "User Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dffb3181-7104-49b9-87d7-712d7f3d2b04",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"5901867@gmail.com\",\n    \"name\": \"Viktor Bogutskiiiqqqaaaaa\",\n    \"phone\": \"+17075901869\",\n    \"links\": {\n        \"linkedIn\": \"https://www.linkedin.com/in/bogutskii\",\n        \"resume\": \"https://docs.google.com/document/d/1KkEO4vyCnR5VNf9y4A5CvQhwMuU5J_JrF0xRdl9F3r4/edit\",\n        \"github\": \"https://github.com/bogutski\",\n        \"facebook\": \"https://www.facebook.com/bogutskiii\",\n        \"codewarsUsername\": \"Viktor Bogutskii\"\n    },\n    \"about\": \"JS developer\",\n    \"goals\": \"1. Create an effective team of teachers to create the best course for training engineers.\",\n    \"englishLevel\": \"Intermediate\",\n    \"roles\": [\"admin\", \"hello3\"]\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/5b7366b42ffb85d6053b8649",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"5b7366b42ffb85d6053b8649"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/user/5bd91334e60a420039580937",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"5bd91334e60a420039580937"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by id Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/user/hash/5bd91334e60a420039580937",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"hash",
+								"5bd91334e60a420039580937"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Fulfilled All",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/user/fulfilled/all",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"fulfilled",
+								"all"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Auth",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/user/auth",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"auth"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/user/lightweight",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"lightweight"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/5b7391e55ec8d7003a0f86e0",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"5b7391e55ec8d7003a0f86e0"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Hash",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/user/hash/5d55d01ff58ca3906275094b",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"hash",
+								"5d55d01ff58ca3906275094b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROGRESS",
+			"item": [
+				{
+					"name": "Get completed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/progress/codewars/completed",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"progress",
+								"codewars",
+								"completed"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				},
+				{
+					"name": "Get completed by UserId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/progress/codewars/completed/5c837b2fb899980038580415",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"progress",
+								"codewars",
+								"completed",
+								"5c837b2fb899980038580415"
+							]
+						},
+						"description": "Create User"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SLACK",
+			"item": [
+				{
+					"name": "Post to channel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"type\": \"mrkdwn\",\n     \"text\": \"NEW Lecture <https://app.pasv.us/group/5cb80b72eaf05a003831b03f/lecture/5d379209b3c772003863421f|QA4 Postman API> *View, practice, mark as understood.* If video is not ready please come back in 5-10 min.\" \n}"
+						},
+						"url": {
+							"raw": "https://hooks.slack.com/services/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",
+							"protocol": "https",
+							"host": [
+								"hooks",
+								"slack",
+								"com"
+							],
+							"path": [
+								"services",
+								"T83EK681G",
+								"BLPP6QDDE",
+								"RAvAuaGihrxgMbxUWXWbxafG"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ACHIEVEMENT",
+			"item": [
+				{
+					"name": "Get gu User Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/achievement",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"achievement"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7dbc8c7a-f61d-4b87-ba31-4b59530ce1b9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f6f0d167-8dea-4868-927b-8eb0cd9f51cb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
