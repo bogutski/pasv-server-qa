@@ -1,0 +1,731 @@
+{
+	"info": {
+		"_postman_id": "3c5d2a65-3af2-4bc1-b0ff-305fa21fee9c",
+		"name": "USER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ac87f5b-ed34-4aeb-b067-627343869f88",
+						"exec": [
+							"pm.environment.set(\"email\", \"ymdd@list.ru\");",
+							"pm.environment.set(\"userPassword\", \"123123\");",
+							"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "92f56d9c-3762-4067-86db-9137a16c53af",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success).to.eql(true); ",
+							"});",
+							"",
+							"/*pm.test(\"Fail is false\", () => {",
+							"    pm.expect(jsonData.fail).to.eql(false);",
+							"});*/",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(respTime).to.be.below(5000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"about\": \"me myself\",\n\t\"name\": \"Viktor Test\",\n\t\"password\": \"{{userPassword}}\",\n\t\"phone\": \"{{userPhone}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "918afc35-40a6-4882-aa74-647f5ac94bc4",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"token\", jsonData.token);",
+							"",
+							"pm.environment.set(\"userId\", jsonData.userId);",
+							"",
+							"pm.test(\"Auth success\", function (){",
+							"pm.expect(jsonData.message.text).to.equal(\"Auth success\");",
+							"});",
+							"",
+							"pm.test(\"Status is correct\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.message.type).to.equal(\"success\"); ",
+							"});",
+							"",
+							"/*pm.test(\"Fail is false\", () => {",
+							"    pm.expect(jsonData.fail).to.eql(false);",
+							"});*/",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(respTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{userPassword}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password reset request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a607cb1-83d4-43ea-aeda-09767688df2a",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success).to.eql(true); ",
+							"});",
+							"",
+							"/*pm.test(\"Fail is false\", () => {",
+							"    pm.expect(jsonData.fail).to.eql(false);",
+							"});*/",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(respTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"{{email}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/password/reset/request",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"password",
+						"reset",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get hash",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "36b7af4c-d956-4198-9d6c-6a8db6fdec1e",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"hash\", jsonData.hash);",
+							"",
+							"pm.test(\"Status is correct\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(respTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"{{email}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/hash/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"hash",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password reset valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "116d8920-f3bb-43e9-8d91-fb2cf1049a48",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success).to.equal(true); ",
+							"});",
+							"",
+							"/*pm.test(\"Fail is false\", () => {",
+							"    pm.expect(jsonData.fail).to.eql(false);",
+							"});*/",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(respTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hash\": \"{{hash}}\",\n\t\"userId\": \"{{userId}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/password/reset/valid",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"password",
+						"reset",
+						"valid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password reset new",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8736366a-bbe6-4809-a13b-ff1d04513ac5",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success).to.eql(true); ",
+							"});",
+							"",
+							"pm.test(\"Password changed message\", function (){",
+							"    pm.expect(jsonDats.message.text).to.equai(\"Your password has been changed successfully\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hash\": \"{{hash}}\",\n\t\"userId\": \"{{userId}}\",\n\t\"password\": \"{{userPassword}} +1\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/password/reset/new",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"password",
+						"reset",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bfcc77d6-d322-48e6-b576-8a36c847438f",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.message.type).to.equal(\"success\"); ",
+							"});",
+							"",
+							"/*pm.test(\"Fail is false\", () => {",
+							"    pm.expect(jsonData.fail).to.eql(false);",
+							"});*/",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(respTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7765ffc9-76c0-4c29-a364-867c4d7e8258",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.message.type).to.equal(\"success\"); ",
+							"});",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(respTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/user/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch update self",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3934aa05-b1ed-4fb2-8c92-f79e40f3c888",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.message.type).to.equal(\"success\"); ",
+							"});",
+							"",
+							"/*pm.test(\"Fail is false\", () => {",
+							"    pm.expect(jsonData.fail).to.eql(false);",
+							"});*/",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(respTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"about\": \"me myself i\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch update by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a3e278f5-51d1-4ddc-a456-ca97247c9efc",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.message.type).to.equal(\"success\"); ",
+							"});",
+							"",
+							"/*pm.test(\"Fail is false\", () => {",
+							"    pm.expect(jsonData.fail).to.eql(false);",
+							"});*/",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(respTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"roles\": [\n\t\t\"student\",\n\t\t\"admin\"\n\t\t]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e849d27-2481-42f7-98cd-3af69adcec9f",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.message.type).to.equal(\"success\"); ",
+							"});",
+							"",
+							"/*pm.test(\"Fail is false\", () => {",
+							"    pm.expect(jsonData.fail).to.eql(false);",
+							"});*/",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(respTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "confirm email",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hash\": \"5d5b76dbcf36140038caedc5\",\n\t\"userId\": \"5d5b76dbcf36140038caedc4\",\n\t\"password\": \"123123\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/verify/email/{{userId}}/5d5b76dbcf36",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"verify",
+						"email",
+						"{{userId}}",
+						"5d5b76dbcf36"
+					]
+				},
+				"description": "to confirm user email"
+			},
+			"response": []
+		}
+	]
+}
