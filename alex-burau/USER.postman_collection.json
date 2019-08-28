@@ -1,0 +1,3139 @@
+{
+	"info": {
+		"_postman_id": "0d28cae3-0645-4fd5-8d26-430684856099",
+		"name": "USER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Positive Admin",
+			"item": [
+				{
+					"name": "Registration valid 15 char: letters, digits,russians bound+. 201",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fa8a4c04-ab5f-48da-9dc9-3cfe95826a2d",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\" Message is string\", ()=>{",
+									"    pm.expect(jsonData.message.text).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b74499e6-3b3e-4ad4-905b-a8b2116c55ba",
+								"exec": [
+									"pm.environment.set(\"mail\", \"aburtester@gmail.com\");",
+									"pm.environment.set(\"name\", \"Alekstesterboun Burtestforbound\");",
+									"pm.environment.set(\"password\",  \"qA@2019\");",
+									"pm.environment.set( \"phone\", \"+19084567777\");",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{mail}}\",\n    \"name\": \"{{name}}\",\n    \"password\": \"{{password}}\",\n    \"phone\": \"{{phone}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"pm.environment.set(\"userId\", jsonData.userId);",
+									"",
+									"",
+									"pm.test(\"Status is 200\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Token is displayed\",() => {",
+									"    pm.expect(jsonData.token).to.be.a('string');",
+									"});",
+									"",
+									"const email = pm.environment.get('mail');",
+									"pm.test(\" User info displayed, email check \",() => {",
+									"    pm.expect(jsonData.user.email).to.eql(email);",
+									"});",
+									"",
+									"pm.test(\" UserId length = 24\",() => {",
+									"    pm.expect(jsonData.userId.length).to.eql(24);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{mail}}\",\n    \"password\": \"{{password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update itself  Adm set up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f893fbed-4eae-4a29-8ba6-7c2cdb2dadc6",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"roles.0\" : \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request for pass change valid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8386e3b3-5e2c-4745-925a-3edcd15fec2c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\" Message is string\", ()=>{",
+									"    pm.expect(jsonData.message.text).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r   \"email\": \"{{mail}}\"\r}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Hash",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ca27079-2070-4b5a-9ce2-7c44e87c2c7f",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"hash\", jsonData.hash);",
+									"",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Token is displayed\",() => {",
+									"    pm.expect(jsonData.hash).to.be.a('string');",
+									"});",
+									"pm.test(\" UserId length = 24\",() => {",
+									"    pm.expect(jsonData.hash.length).to.eql(24);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/hash/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"hash",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hash validation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b2898b1-c67d-4ad6-ac11-5a5438985abe",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Token is displayed\",() => {",
+									"    pm.expect(jsonData.hash).to.be.a('string');",
+									"});",
+									"pm.test(\" UserId length = 24\",() => {",
+									"    pm.expect(jsonData.hash.length).to.eql(24);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\t  \"userId\": \"{{userId}}\",\r\t  \"hash\": \"{{hash}}\"\t \t \r\t}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/valid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"valid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New password set",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b27c4080-a7cb-488b-aff9-b10372562932",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);});",
+									"",
+									"pm.test(\" UserId length = 24\",() => {",
+									"    pm.expect(jsonData.hash.length).to.eql(24);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r  \"hash\": \"{{hash}}\",\r  \"userId\": \"{{userId}}\",\r  \"password\": \"newword\"\r}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9e40373-b17b-4b06-ada5-3864cb93c739",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "94d482ab-103a-4203-b027-7cb614f8fd7d",
+								"exec": [
+									"",
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{2userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{2userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update itself",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f893fbed-4eae-4a29-8ba6-7c2cdb2dadc6",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Alekstesterboun Burtestchange\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ff1078a8-048e-4d74-be2c-305a7a8797f8",
+								"exec": [
+									"",
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Alekstesterboun Changedagain\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2a068dfa-248a-4f16-add3-2ec712e1fc92",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "95f96734-ceff-4ffc-a8c5-1f78ab03d7c7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ab5ab98-f9bf-471b-930a-e72003f430d1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Negative",
+			"item": [
+				{
+					"name": "Registration  email exists . 409",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester@gmail.com\",\n    \"name\": \"Alekstester Bur\",\n    \"password\": \"qa423\",\n    \"phone\": \"+19084567777\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration email empty . 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"\",\n    \"name\": \"Alekstester Bur\",\n    \"password\": \"qa423\",\n    \"phone\": \"+19084567777\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration email missing  .  500",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Alekstester Bur\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration email invalid(missing @). 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Alekstester Bur\",\n    \"email\": \"aburtester+2gmail.com\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration email invalid(@@). 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Alekstester Bur\",\n    \"email\": \"aburtester+2@@gmail.com\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration  phone empty. 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"Alekstester Burau\",\n    \"password\": \"qa4234\",\n    \"phone\": \"\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration  phone missing. 500",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"Alekstester Burau\",\n    \"password\": \"qa4234\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration  phone w/o +. 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"Alekstester Burau\",\n    \"password\": \"qa4234\",\n    \"phone\": \"19084567778\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration  phone 13 digits . 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"Alekstester Burau\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+1908456777898\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration pass empty . 400",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"Alekstester Burau\",\n    \"password\": \"\",\n    \"phone\": \"+19084567778\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration pass missing . 500",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"Alekstester Burau\",\n    \"phone\": \"+19084567778\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration  pass letters (<5) only. 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"Alekstester Burau\",\n    \"password\": \"423456\",\n    \"phone\": \"+19084567778\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration name filed missing   .  500",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}\t"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration name empty . 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration name special char only . 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \" @<>$:?\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration name invalid (No capitals). 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"alex burau\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration name invalid (one word).  404 Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"Alex\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration name invalid (Digits).  404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"444  4562\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration name invalid (More  15 letters). 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"Verylongnamefromuknowncountrymorethanfifteen Burau\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration name invalid (russian letters). 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester+1@gmail.com\",\n    \"name\": \"Александр Burau\",\n    \"password\": \"qa4234\",\n    \"phone\": \"+19084567778\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in pass empty 401",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester@gmail.com\",\n    \"password\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in pass missing 401",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in pass added space 401",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester@gmail.com\",\n    \"password\": \"qA423 \"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in pass capital letter 401",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester@gmail.com\",\n    \"password\": \"QA423 \"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in email missing 401",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"qA423\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in email empty 401",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"\",\n    \"password\": \"qA423\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in email modified 401",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester1@gmail.com\",\n    \"password\": \"qA423\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request for pass change email empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8386e3b3-5e2c-4745-925a-3edcd15fec2c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r   \"email\": \"\"\r}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request for pass change INvalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8386e3b3-5e2c-4745-925a-3edcd15fec2c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r   \"email\": \"wrongtestalex2@gmail.com\"\r}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update by Id(User2). Not admin",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Ntoken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Alekstesterboun Burtestchanged\",\n\"role\": \"new\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/{{2userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{2userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by Id(NUser, Itself) not admin",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Ntoken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{NuserId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{NuserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get All No permission.",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{Ntoken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e7be03fe-df09-46cd-802c-36b760e867c6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce1bc6ce-82a2-4a56-9162-ece1287beb7b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Positive Admin + User 2 Backup",
+			"item": [
+				{
+					"name": "Registration Admin valid 15 char: letters, digits,russians bound+. 201",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fa8a4c04-ab5f-48da-9dc9-3cfe95826a2d",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\" Message is string\", ()=>{",
+									"    pm.expect(jsonData.message.text).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b74499e6-3b3e-4ad4-905b-a8b2116c55ba",
+								"exec": [
+									"pm.environment.set(\"mail\", \"aburtester@gmail.com\");",
+									"pm.environment.set(\"name\", \"Alekstesterboun Burtestforbound\");",
+									"pm.environment.set(\"password\",  \"qA@2019\");",
+									"pm.environment.set( \"phone\", \"+19084567777\");",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{mail}}\",\n    \"name\": \"{{name}}\",\n    \"password\": \"{{password}}\",\n    \"phone\": \"{{phone}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration User 2 . 201",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fa8a4c04-ab5f-48da-9dc9-3cfe95826a2d",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\" Message is string\", ()=>{",
+									"    pm.expect(jsonData.message.text).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b74499e6-3b3e-4ad4-905b-a8b2116c55ba",
+								"exec": [
+									"pm.environment.set(\"2mail\", \"aburtester+2@gmail.com\");",
+									"pm.environment.set(\"2name\", \"Alek Bur\");",
+									"pm.environment.set(\"2password\",  \"qA@2019!\");",
+									"pm.environment.set( \"2phone\", \"+190845677778\");",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{2mail}}\",\n    \"name\": \"{{2name}}\",\n    \"password\": \"{{2password}}\",\n    \"phone\": \"{{2phone}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in Admin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"pm.environment.set(\"userId\", jsonData.userId);",
+									"",
+									"",
+									"pm.test(\"Status is 200\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Token is displayed\",() => {",
+									"    pm.expect(jsonData.token).to.be.a('string');",
+									"});",
+									"",
+									"const email = pm.environment.get('2mail');",
+									"pm.test(\" User info displayed, email check \",() => {",
+									"    pm.expect(jsonData.user.email).to.eql(email);",
+									"});",
+									"",
+									"pm.test(\" UserId length = 24\",() => {",
+									"    pm.expect(jsonData.userId.length).to.eql(24);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{mail}}\",\n    \"password\": \"{{password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in  User 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"2token\", jsonData.token);",
+									"pm.environment.set(\"2userId\", jsonData.userId);",
+									"",
+									"",
+									"pm.test(\"Status is 200\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Token is displayed\",() => {",
+									"    pm.expect(jsonData.token).to.be.a('string');",
+									"});",
+									"",
+									"const email = pm.environment.get('2mail');",
+									"pm.test(\" User info displayed, email check \",() => {",
+									"    pm.expect(jsonData.user.email).to.eql(email);",
+									"});",
+									"",
+									"pm.test(\" UserId length = 24\",() => {",
+									"    pm.expect(jsonData.userId.length).to.eql(24);",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{2mail}}\",\n    \"password\": \"{{2password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request for pass change valid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8386e3b3-5e2c-4745-925a-3edcd15fec2c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\" Message is string\", ()=>{",
+									"    pm.expect(jsonData.message.text).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r   \"email\": \"{{mail}}\"\r}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Hash",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ca27079-2070-4b5a-9ce2-7c44e87c2c7f",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"hash\", jsonData.hash);",
+									"",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"/*   pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									" pm.test(\" Message is string\", ()=>{",
+									"    pm.expect(jsonData.message.text).to.be.a('string');",
+									"}); */",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r    \"userID\": \"{{userId}}\"\r}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/hash/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"hash",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hash validation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\t  \"hash\": \"{{hash}}}\",\r\t  \"userID\": \"{{userId}}\"\r\t}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/valid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"valid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New password set",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r  \"hash\": \"{{hash}}\",\r  \"userID\": \"{{userId}}\",\r  \"password\": \"newpassword\"\r}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{2userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{2userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update itself",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Alekstesterboun Burtestchange\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update by Id(User2)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Alekstesterboun Burtestchanged\",\n\"roles\": \"student\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/{{2userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{2userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by Id(User2)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{2userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{2userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "95f96734-ceff-4ffc-a8c5-1f78ab03d7c7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ab5ab98-f9bf-471b-930a-e72003f430d1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Registration Positive add",
+			"item": [
+				{
+					"name": "Registration valid (bonderies) . 201",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aburtester@gmail.com\",\n    \"name\": \"Alekstesterbou B\",\n    \"password\": \"qA423\",\n    \"phone\": \"+19084567777\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "69f8ea05-76f9-412f-8187-85cb00356f7c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9323975a-337e-498d-80a6-468750d247bd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Positive   Role \"New\"",
+			"item": [
+				{
+					"name": "Registration User N . 201 Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fa8a4c04-ab5f-48da-9dc9-3cfe95826a2d",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\" Message is string\", ()=>{",
+									"    pm.expect(jsonData.message.text).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b74499e6-3b3e-4ad4-905b-a8b2116c55ba",
+								"exec": [
+									"pm.environment.set(\"Nmail\", \"aburtester+3@gmail.com\");",
+									"pm.environment.set(\"Nname\", \"Alek Bur\");",
+									"pm.environment.set(\"Npassword\",  \"newpassword\");",
+									"pm.environment.set( \"Nphone\", \"+190845677779\");",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{Nmail}}\",\n    \"name\": \"{{Nname}}\",\n    \"password\": \"{{Npassword}}\",\n    \"phone\": \"{{Nphone}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5430683d-25c2-4143-8323-779d367c6cd9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "11eca18c-3332-413e-be4d-d60b8dfc5cf4",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"Ntoken\", jsonData.token);",
+									"pm.environment.set(\"NuserId\", jsonData.userId);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{Nmail}}\",\n    \"password\": \"{{Npassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request for pass change valid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8386e3b3-5e2c-4745-925a-3edcd15fec2c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.test(\" Message is string\", ()=>{",
+									"    pm.expect(jsonData.message.text).to.be.a('string');",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r   \"email\": \"{{Nmail}}\"\r}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Hash (Under Admin)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ca27079-2070-4b5a-9ce2-7c44e87c2c7f",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"Nhash\", jsonData.hash);",
+									"",
+									"",
+									"pm.test(\"Status is correct\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"/*   pm.test(\" Success is true\",() => {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									" pm.test(\" Message is string\", ()=>{",
+									"    pm.expect(jsonData.message.text).to.be.a('string');",
+									"}); */",
+									"",
+									"pm.test(\"Response time is less than 2500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/hash/{{NuserId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"hash",
+								"{{NuserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hash validation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\t  \"hash\": \"{{Nhash}}\",\r\t  \"userId\": \"{{NuserId}}\"\r\t}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/valid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"valid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New password set",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r  \"hash\": \"{{Nhash}}\",\r  \"userId\": \"{{NuserId}}\",\r  \"password\": \"newpassword\"\r}\r"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{NuserId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{NuserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update itself",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{Ntoken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Alekstesterboun Burtestagain\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "95f96734-ceff-4ffc-a8c5-1f78ab03d7c7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ab5ab98-f9bf-471b-930a-e72003f430d1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "LATER",
+			"item": [
+				{
+					"name": "Analytics",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/analytics/**placeholders**",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"analytics",
+								"**placeholders**"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
