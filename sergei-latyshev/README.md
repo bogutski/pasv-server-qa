@@ -2,7 +2,7 @@
 
 ## `Sergei Latyshev` TESTS
 
-### Pre-request tests in "Register:
+### Pre-request tests in "Register
 
 ```javascript
 pm.environment.set("userEmail", "latyshev_" + new Date().getTime() + "@test.ok");
@@ -10,7 +10,7 @@ pm.environment.set("userPassword", "12345");
 pm.environment.set("userPhone", "+" + Math.floor(Math.random() * 100000000000));
 ```
 
-### Univesal tests:
+### Universal tests
 
 ```javascript
 pm.test("Status code is correct", function () {
@@ -26,20 +26,20 @@ pm.test("Message is Success", () => {
 });
 ```
 
-### Create vaeiables (login request):
+### Create variables (login request)
 
 ```javascript
 pm.environment.set("token", pm.response.json().token);
 pm.environment.set("userId", pm.response.json().user._id);
 ```
 
-### Create vaeiables (get hash):
+### Create variables (get hash)
 
 ```javascript
 pm.environment.set("hash", pm.response.json().hash);
 ```
 
-### Test in "Get hash":
+### Test in "Get hash"
 
 ```javascript
 pm.test("Hash is presetned", function () {
