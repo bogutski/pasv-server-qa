@@ -1,0 +1,488 @@
+{
+	"info": {
+		"_postman_id": "e0bcfc66-3d97-4726-b2c9-c7b10053823b",
+		"name": "USER-Admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "817ab7bf-5df0-475e-9eb5-a1f24ac903ac",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"token\", jsonData.token);",
+							"pm.environment.set(\"userId\", jsonData.userId);",
+							"",
+							"pm.test(\"Status code is success\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"pm.test(\"Auth success\", function (){",
+							"    pm.expect(jsonData.message).to.equal(\"Auth success\");",
+							"});",
+							"",
+							"pm.test(\"Response includes token\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"token\");",
+							"});",
+							"",
+							"pm.test(\"User name is per requirements\", function(){",
+							"    pm.expect(jsonData.user.name).to.match( /^[A-Z][a-z]{1,15}\\s[A-Z][a-z]{1,15}$/);",
+							"});",
+							"",
+							"pm.test(\"UserID length to be 24 characters\", function(){",
+							"    pm.expect(jsonData.user._id).to.have.lengthOf(24);",
+							"});",
+							"",
+							"pm.test(\"User phone number is per requirements\", function() {",
+							"    pm.expect(jsonData.user.phone).to.match(/^\\+[0-9]{11,12}$/); ",
+							"});",
+							"",
+							"pm.test(\"User email is per requirements\", function(){",
+							"    pm.expect(jsonData.user.email).to.match(/[a-z0-9!#$%&‘*+/=?^_{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);",
+							"}); ",
+							"",
+							"pm.test(\"User role is admin\", () => {",
+							"    pm.expect(jsonData.user.roles[0]).to.equal(\"admin\");",
+							"});",
+							"",
+							"pm.test(\"The acl length is larger than 1\", () => {",
+							"    pm.expect(jsonData.acl).to.have.lengthOf.at.least(2);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9484bd7c-ce5c-4f67-8fa5-9d2d3f7acb63",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"yuli1566234361395@gmail.com\",\n\t\"password\": \"yuliaR12345\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all by Id Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea228815-b428-4fd1-a221-308834bbdc11",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status of response is OK\", function () {",
+							"    pm.response.to.be.success;",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response includes emailConfirmation\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"emailConfirmation\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/user/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset password Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9a998f3-ddd1-4aa7-80c8-262da6cb2e6b",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success).to.equal(true);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Status code is success\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"email\": \"yuli1565844581045@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/password/reset/request",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"password",
+						"reset",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get hash Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "387b943d-ed09-473f-bce0-9c1f9c56119c",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"hash\", jsonData.hash);",
+							"",
+							"pm.test(\"Response is JSON\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Hash is a string\", function(){",
+							"    pm.expect(jsonData.hash).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"Hash length to be 24 characters\", function(){",
+							"    pm.expect(jsonData.hash).to.have.lengthOf(24);",
+							"});",
+							"",
+							"pm.test(\"Status code is success\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user/hash/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"hash",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hash validation Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ee7287d2-64ba-468a-9dca-154cf25a7c9f",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Response is JSON\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Status code is success\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success).to.equal(true);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hash\": \"{{hash}}\",\n\t\"userId\": \"{{userId}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/password/reset/valid",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"password",
+						"reset",
+						"valid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New password Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eb26b6dd-7e56-4b93-b138-82534227b649",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success).to.equal(true);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hash\": \"{{hash}}\",\n    \"userId\": \"{{userId}}\",\n    \"password\": \"{{userPassword}} +1\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/password/reset/new",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"password",
+						"reset",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update self Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a68245b9-489c-41f5-88f0-3c4f274dcdfc",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success).to.equal(true);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Status code is success\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"yuli1565844581045@gmail.com\",\n    \"name\": \"Yuliya Ra\",\n    \"phone\": \"{{userPhone}}\",\n    \"links\": {\n        \"linkedIn\": \"https://www.linkedin.com/in\",\n        \"resume\": \"https://docs.google.com/document\",\n        \"github\": \"https://github.com/\",\n        \"facebook\": \"https://www.facebook.com\",\n        \"codewarsUsername\": \"hello12345\"\n    },\n    \"about\": \"about me\",\n    \"goals\": \"12345 asdfgg\",\n    \"englishLevel\": \"Intermediate\",\n    \"roles\" : \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
