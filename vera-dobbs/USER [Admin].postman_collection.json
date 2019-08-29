@@ -1,0 +1,683 @@
+{
+	"info": {
+		"_postman_id": "94bdb058-abcf-4e4c-b727-207be8e8a02a",
+		"name": "USER [Admin]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Analytics",
+			"item": [
+				{
+					"name": "Analytics",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/analytics/5d55a6a4514f700038527cd8",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"analytics",
+								"5d55a6a4514f700038527cd8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin run",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b5f1a5ee-d482-4131-aeb1-c51d26329570",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c8bb4782-3291-493d-8d01-6ad61086a540",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"",
+									"pm.environment.set(\"userId\",jsonData.userId);",
+									"",
+									"pm.test(\"Status is correct\", function() { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Success is true\", () => { pm.expect(jsonData.message.type).to.equal(\"success\"); });",
+									"",
+									"/*pm.test(\"Fail is false\", () => { pm.expect(jsonData.fail).to.eql(false); });*/",
+									"",
+									"let respTime = pm.response.responseTime;",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () { pm.expect(respTime).to.be.below(5000); });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b9180925-4e2d-45db-8e60-d8d9f59c91ac",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Success is true\", () => { pm.expect(jsonData.success).to.equal(true); });",
+									"",
+									"/*pm.test(\"Fail is false\", () => { pm.expect(jsonData.fail).to.eql(false); });*/",
+									"",
+									"let respTime = pm.response.responseTime;",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () { pm.expect(respTime).to.be.below(5000); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{userEmail}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Hash",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a7efa72-c8b8-457d-bccf-096e20397982",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"hash\", jsonData.hash);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/hash/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"hash",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hash Validation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ecdc48f-655f-4fe7-a135-6d156c84d06e",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Success is true\", () => { pm.expect(jsonData.success).to.equal(true); });",
+									"",
+									"/*pm.test(\"Fail is false\", () => { pm.expect(jsonData.fail).to.eql(false); });*/",
+									"",
+									"let respTime = pm.response.responseTime;",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () { pm.expect(respTime).to.be.below(5000); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"hash\": \"{{hash}}\",\n\t \"userId\": \"{{userId}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/valid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"valid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28b8d2fe-122b-451a-b61c-79424bff03bd",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Success is true\", () => { pm.expect(jsonData.success).to.equal(true); });",
+									"",
+									"/*pm.test(\"Fail is false\", () => { pm.expect(jsonData.fail).to.eql(false); });*/",
+									"",
+									"let respTime = pm.response.responseTime;",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () { pm.expect(respTime).to.be.below(5000); });",
+									"",
+									"/*pm.test(\"Password changed message\", function (){",
+									"   pm.expect(jsonData.message.text).to.equal(\"Your password has been changed successfully\");",
+									"});*/",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"hash\": \"{{hash}}\",\n  \"userId\": \"{{userId}}\",\n  \"password\": \"{{userPassword}} + 1\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6094fb48-53fb-4fe8-bcca-9a920ac901b6",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Success is true\", () => { pm.expect(jsonData.message.type).to.equal(\"success\"); });",
+									"",
+									"/*pm.test(\"Fail is false\", () => { pm.expect(jsonData.fail).to.eql(false); });*/",
+									"",
+									"let respTime = pm.response.responseTime;",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () { pm.expect(respTime).to.be.below(5000); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ded0a8a6-0012-4335-957a-5b9f5eae9517",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() { pm.response.to.have.status(200); });",
+									"",
+									"/*pm.test(\"Success is true\", () => { pm.expect(jsonData.message.type).to.equal(\"success\"); });*/",
+									"",
+									"/*pm.test(\"Fail is false\", () => { pm.expect(jsonData.fail).to.eql(false); });*/",
+									"",
+									"let respTime = pm.response.responseTime;",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () { pm.expect(respTime).to.be.below(5000); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Self",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "111fe45e-2f6d-4ebc-9685-2431b071dc17",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Success is true\", () => { pm.expect(jsonData.message.type).to.equal(\"success\"); });",
+									"",
+									"/*pm.test(\"Fail is false\", () => { pm.expect(jsonData.fail).to.eql(false); });*/",
+									"",
+									"let respTime = pm.response.responseTime;",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () { pm.expect(respTime).to.be.below(5000); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"roles\": [\"admin\"],\n\t\"about\": \"hello, this is about me\",\n\t\"goals\": \"this is a goal\",\n\t\"englishlevel\": \"advanced\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "62a11d81-f9fb-4782-8fda-5fb0b9fb121d",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Success is true\", () => { pm.expect(jsonData.message.type).to.equal(\"success\"); });",
+									"",
+									"/*pm.test(\"Fail is false\", () => { pm.expect(jsonData.fail).to.eql(false); });*/",
+									"",
+									"let respTime = pm.response.responseTime;",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () { pm.expect(respTime).to.be.below(5000); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"roles\": [\"admin\"]\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "258fe17a-c68e-485b-bc6d-2fdcc7c75f5b",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function() { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Success is true\", () => { pm.expect(jsonData.message.type).to.equal(\"success\"); });",
+									"",
+									"/*pm.test(\"Fail is false\", () => { pm.expect(jsonData.fail).to.eql(false); });*/",
+									"",
+									"let respTime = pm.response.responseTime;",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () { pm.expect(respTime).to.be.below(5000); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6005474e-a189-47dd-ae9d-eec480cedbdc",
+						"exec": [
+							"pm.environment.set(\"userEmail\", \"elverads\" + new Date().getTime() + \"@gmail.com\");",
+							"pm.environment.set(\"userPassword\", \"lalala123\");",
+							"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "30d0cc05-eb4e-4475-856c-616e9f7b0d04",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", function() { pm.response.to.have.status(201); });",
+							"",
+							"pm.test(\"Success is true\", () => { pm.expect(jsonData.success).to.equal(true); });",
+							"",
+							"/*pm.test(\"Fail is false\", () => { pm.expect(jsonData.fail).to.eql(false); });*/",
+							"",
+							"let respTime = pm.response.responseTime;",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () { pm.expect(respTime).to.be.below(5000); });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"email\": \"{{userEmail}}\",\n   \"name\": \"Vera Vera\",\n   \"password\": \"{{userPassword}}\",\n   \"phone\": \"{{userPhone}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
