@@ -15,13 +15,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/analytics/5d53819b5351f97a81ede9b9",
+							"raw": "{{host}}/analytics/5d6702973a89b4ba9ee4b3b2",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"analytics",
-								"5d53819b5351f97a81ede9b9"
+								"5d6702973a89b4ba9ee4b3b2"
 							]
 						}
 					},
@@ -39,7 +39,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"url": {
@@ -63,7 +63,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"url": {
@@ -129,7 +129,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -161,7 +161,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -193,7 +193,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -224,7 +224,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -256,7 +256,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"url": {
@@ -282,7 +282,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}",
+										"value": "{{token}}",
 										"type": "text"
 									}
 								],
@@ -310,7 +310,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}",
+										"value": "{{token}}",
 										"type": "text"
 									}
 								],
@@ -366,7 +366,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -398,7 +398,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -436,7 +436,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -468,7 +468,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -1094,7 +1094,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -1127,7 +1127,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -1319,7 +1319,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"url": {
@@ -1347,7 +1347,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -1379,7 +1379,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -1411,7 +1411,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"url": {
@@ -1705,7 +1705,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"body": {
@@ -1735,7 +1735,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"body": {
@@ -1766,7 +1766,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"body": {
@@ -1797,7 +1797,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -1825,7 +1825,7 @@
 							{
 								"key": "Authorization",
 								"type": "text",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"url": {
@@ -1879,20 +1879,20 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Js28-8\",\n\t\"description\": \"Some text\"\n}"
+							"raw": "{\n\t\"name\": \"ASSFSLIYIUQWYKEJWE\",\n\t\"description\": \"Some text KJ KJH KJH KJH KJ HKJH KJH KJH \"\n}"
 						},
 						"url": {
-							"raw": "{{host}}/group",
+							"raw": "{{host}}/diary",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"group"
+								"diary"
 							]
 						}
 					},
@@ -1909,21 +1909,21 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"----3-----\",\n\t\"members\": [\n            \"5b7366b42ffb85d6053b8649\", \n            \"5b7ba562c59f6d003a075b09\"\n        ]\n}"
+							"raw": "{\n    \"description\": \"!!!!!! Write what is useful for self-development, learning, or practice you did today. Write what topics you read, what videos you watched or what documentation you read, what tasks you solved or started to solve. Indicate how much time you have devoted to work. If you had a meeting or interview write about the result.\\n\",\n    \"labels\": [\n        \"understood_everything\",\n        \"code_practice\",\n        \"job_offer\",\n        \"interview_onsite\",\n        \"interview_screen\",\n        \"recruiter_phone_call\",\n        \"interview_preparation\",\n        \"quiz\",\n        \"read_documentation\",\n        \"watch_lessons\",\n        \"help_classmates\",\n        \"need_help\"\n    ]\n}"
 						},
 						"url": {
-							"raw": "{{host}}/group/5baeb560902190562709dd66",
+							"raw": "{{host}}/diary/5d65ff4a6a35e59358d709fa",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"group",
-								"5baeb560902190562709dd66"
+								"diary",
+								"5d65ff4a6a35e59358d709fa"
 							]
 						}
 					},
@@ -1940,7 +1940,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"body": {
@@ -1971,7 +1971,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": " {{token}}",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -1999,7 +1999,7 @@
 							{
 								"key": "Authorization",
 								"type": "text",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"url": {
@@ -2027,7 +2027,7 @@
 							{
 								"key": "Authorization",
 								"type": "text",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"url": {
@@ -2085,7 +2085,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2116,7 +2116,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2149,7 +2149,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2181,7 +2181,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2213,7 +2213,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2246,7 +2246,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"url": {
@@ -2273,7 +2273,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}",
+										"value": "{{token}}",
 										"type": "text"
 									}
 								],
@@ -2330,7 +2330,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2361,7 +2361,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2393,7 +2393,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2426,7 +2426,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"url": {
@@ -2454,7 +2454,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"url": {
@@ -2510,7 +2510,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2541,7 +2541,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2573,7 +2573,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2605,7 +2605,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2639,7 +2639,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"url": {
@@ -2756,7 +2756,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2816,7 +2816,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2848,7 +2848,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"url": {
@@ -2876,7 +2876,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -2908,7 +2908,7 @@
 									{
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"body": {
@@ -3016,7 +3016,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"url": {
@@ -3253,7 +3253,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"url": {
@@ -3343,7 +3343,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}",
+										"value": "{{token}}",
 										"disabled": true
 									}
 								],
@@ -3374,7 +3374,7 @@
 									},
 									{
 										"key": "Authorization",
-										"value": "Bearer {{_token}}"
+										"value": "{{token}}"
 									}
 								],
 								"url": {
@@ -3476,7 +3476,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"1231234@gmail.com\",\n  \"password\": \"123123\",\n  \"phone\": \"+170759018667\", \n  \"name\" : \"Test Test\" \n}"
+							"raw": "{\n  \"email\": \"qqqqq@gmail.com\",\n  \"password\": \"123123\",\n  \"phone\": \"+170759018667\", \n  \"name\" : \"Test Test\" \n}"
 						},
 						"url": {
 							"raw": "{{host}}/user",
@@ -3511,12 +3511,14 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json"
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"5901867@gmail.com\",\n  \"password\": \"A1053Ttt\"\n}"
+							"raw": "{\n  \"email\": \"qqqqq@gmail.com\",\n  \"password\": \"123123\"\n}"
 						},
 						"url": {
 							"raw": "{{host}}/user/login",
@@ -3563,7 +3565,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"5901867@gmail.com\",\n    \"name\": \"Viktor Bogutskiiiqqqaaaaa\",\n    \"phone\": \"+17075901869\",\n    \"links\": {\n        \"linkedIn\": \"https://www.linkedin.com/in/bogutskii\",\n        \"resume\": \"https://docs.google.com/document/d/1KkEO4vyCnR5VNf9y4A5CvQhwMuU5J_JrF0xRdl9F3r4/edit\",\n        \"github\": \"https://github.com/bogutski\",\n        \"facebook\": \"https://www.facebook.com/bogutskiii\",\n        \"codewarsUsername\": \"Viktor Bogutskii\"\n    },\n    \"about\": \"JS developer\",\n    \"goals\": \"1. Create an effective team of teachers to create the best course for training engineers.\",\n    \"englishLevel\": \"Intermediate\",\n    \"roles\": [\"admin\", \"hello4\"]\n}"
+							"raw": "{\n    \"email\": \"5901867@gmail.com\",\n    \"name\": \"Viktor Bogutsss\",\n    \"phone\": \"+17075901862\",\n    \"links\": {\n        \"linkedIn\": \"https://www.linkedin.com/in/bogutskii2\",\n        \"resume\": \"https://docs.google.com/document/d/1KkEO4vyCnR5VNf9y4A5CvQhwMuU5J_JrF0xRdl9F3r2/edit\",\n        \"github\": \"https://github.com/bogutski2\",\n        \"facebook\": \"https://www.facebook.com/bogutskiii2\",\n        \"codewarsUsername\": \"Viktor Bogutskii2\"\n    },\n    \"about\": \"JS developer2\",\n    \"goals\": \"1. Create an effective team of teachers to create the best course for training engineers.2\",\n    \"englishLevel\": \"Intermediate2\",\n    \"roles.0\": \"root2\"\n}"
 						},
 						"url": {
 							"raw": "{{host}}/user",
@@ -3634,17 +3636,17 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"url": {
-							"raw": "{{host}}/user/5bd91334e60a420039580937",
+							"raw": "{{host}}/user/5d65ec11b1878f003877aae4",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"user",
-								"5bd91334e60a420039580937"
+								"5d65ec11b1878f003877aae4"
 							]
 						},
 						"description": "Create User"
@@ -3666,14 +3668,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{host}}/user/hash/5bd91334e60a420039580937",
+							"raw": "{{host}}/user/hash/5d65ec11b1878f003877aae4",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"user",
 								"hash",
-								"5bd91334e60a420039580937"
+								"5d65ec11b1878f003877aae4"
 							]
 						},
 						"description": "Create User"
@@ -3720,7 +3722,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": " {{token}}"
 							}
 						],
 						"url": {
@@ -3767,7 +3769,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{_token}}"
+								"value": "{{token}}"
 							}
 						],
 						"url": {
@@ -3953,14 +3955,14 @@
 			"name": "ACHIEVEMENT",
 			"item": [
 				{
-					"name": "Get gu User Id",
+					"name": "Get by Current User",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "text"
+								"type": "text",
+								"value": "{{token}}"
 							}
 						],
 						"url": {
