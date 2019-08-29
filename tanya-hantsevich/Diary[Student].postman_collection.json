@@ -1,0 +1,1412 @@
+{
+	"info": {
+		"_postman_id": "e77de187-42ff-40cb-985c-fa306f3f6a9f",
+		"name": "Diary[Student]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Positive [Student] Diary",
+			"item": [
+				{
+					"name": "Create Diary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"pm.environment.set(\"diaryId\", jsonData.payload.diaryId);",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Success is true\", () => {pm.expect(jsonData.success).to.equal(true);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"    ",
+									"pm.test(\"Response includes payload\", () => {pm.expect(jsonData).to.include.keys(\"payload\");",
+									"});",
+									"    ",
+									"    pm.test(\"The length of DiaryId is 24\", () => {pm.expect(jsonData.payload.diaryId.length).to.equal(24);",
+									"});",
+									"pm.test(\"Returns 24 char alphanumeric id\", () => {pm.expect(jsonData.payload.diaryId).to.match(/^[a-f0-9A-F]{24}$/);",
+									"    ",
+									"}); ",
+									"pm.test(\"response should be okay to process\", function () {",
+									"pm.response.to.not.be.error;",
+									"pm.response.to.not.have.jsonBody(\"error\");",
+									"",
+									"});",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									"pm.environment.set(\"diaryText\", \"Today I solved\" + new Date() + \"katas.\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"description\": \"{{diaryText}}\",\n\"labels\": [\"understood_everything\"]\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like Diary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Success is true\", () => {pm.expect(jsonData.success).to.equal(true);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/{{diaryId}}/like",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"{{diaryId}}",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve Diary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approved\": true,\n    \"reward\": 1\n}"
+						},
+						"url": {
+							"raw": "{{host}}/diary/{{diaryId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"{{diaryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Diaries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"pm.test(\"response should be okay to process\", function () {",
+									"pm.response.to.not.be.error;",
+									"pm.response.to.not.have.jsonBody(\"error\");",
+									"",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Diary by DiaryId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"pm.test(\"response should be okay to process\", function () {",
+									"pm.response.to.not.be.error;",
+									"pm.response.to.not.have.jsonBody(\"error\");",
+									"",
+									"});",
+									"",
+									"pm.test(\"Response has one user\", () => {pm.expect(jsonData).to.not.be.empty;",
+									"    ",
+									"});",
+									"",
+									"let savedDiaryId = pm.environment.get(\"diaryId\");",
+									"pm.test(\"Diary ID is equal to diaryId\", () => {pm.expect(jsonData._id).to.equal(savedDiaryId);",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/{{diaryId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"{{diaryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Diaries of User by User Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"pm.test(\"response should be okay to process\", function () {",
+									"pm.response.to.not.be.error;",
+									"pm.response.to.not.have.jsonBody(\"error\");",
+									"",
+									"});",
+									"",
+									"let savedUserId = pm.environment.get(\"userId\");",
+									"",
+									"pm.test(\"Owner is equal to userId\", () => {",
+									"    for(let i = 0; i < jsonData.length; i++){",
+									"    pm.expect(jsonData[i].owner).to.equal(savedUserId);",
+									"    }",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Diary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"    ",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/{{diaryId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"{{diaryId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative [Student] Diary",
+			"item": [
+				{
+					"name": "Create Diary empty description",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									"pm.environment.set(\"diaryText\", \"Today I solved\" + new Date() + \"katas.\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"description\": \"\",\n\"labels\": [\"understood_everything\"]\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Diary description length is 29 chars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									"pm.environment.set(\"diaryText\", \"Today I solved\" + new Date() + \"katas.\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"description\": \"01234567890123456789012345678\",\n\"labels\": [\"understood_everything\"]\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Diary no description",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									"pm.environment.set(\"diaryText\", \"Today I solved\" + new Date() + \"katas.\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"labels\": [\"understood_everything\"]\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Diary empty labels",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									"pm.environment.set(\"diaryText\", \"Today I solved\" + new Date() + \"katas.\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"description\": \"012345678901234567890123456789\",\n\"labels\": [\"\"]\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Diary no labels",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									"pm.environment.set(\"diaryText\", \"Today I solved\" + new Date() + \"katas.\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"description\": \"012345678901234567890123456789\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Diary no token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"    ",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									"pm.environment.set(\"diaryText\", \"Today I solved\" + new Date() + \"katas.\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"description\": \"{{diaryText}}\",\n\"labels\": [\"understood_everything\"]\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like Diary no token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/{{diaryId}}/like",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"{{diaryId}}",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Diaries no token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Diary by DiaryId incorrect diaryId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/5d683ce49dc8750038f745ee",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"5d683ce49dc8750038f745ee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Diary by DiaryId incorrect diaryId Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/{{diaryId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"{{diaryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Diaries of User by User Id incorrect UserId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/user/5d65f659612dd80038998a77",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"user",
+								"5d65f659612dd80038998a77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Diaries of User by User Id no token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0926efae-4083-4cb7-a2e1-912afe619897",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"pm.test(\"Success is false\", () => {pm.expect(jsonData.success).to.equal(false);",
+									"    ",
+									"});",
+									"pm.test(\"Response includes message\", () => {pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ce91e6c4-6df8-4486-8f6e-d973784e4a78",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/diary/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"diary",
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
