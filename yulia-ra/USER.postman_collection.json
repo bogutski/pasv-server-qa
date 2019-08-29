@@ -1,0 +1,1492 @@
+{
+	"info": {
+		"_postman_id": "244c6772-5804-4a2b-90f3-ca62d80323e5",
+		"name": "USER",
+		"description": "*USER entity**\n\nFields\n> id (required). Type: string (consists of 24 symbols which are generated automatically: digits, letters from a-f, A-F);\n\n> email (required, unique). Type: string that matches the regexp /[a-z0-9!#$%&'+/=?^_{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)@(?:a-z0-9?.)+a-z0-9?/;\n\n> name (required, not unique). Type: string (two parts divided by space, accept 1-15 symbols, 1st symbol - any letter in upper case, other symbols - any letters in lowercase from English alphabet);\n\n> phone (required, unique). Type: string (“+” - first symbol, other 10-11 symbols - digits);\n\n> password (required). Type: string;\n\n> links (not required). Type: list of strings;\n\n> roles (not required). Type: array of strings.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User \"New\"",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12827964-5826-4eff-b8ea-3562872fea5c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success & response is JSON\", function () {",
+									"    pm.response.to.be.success;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Success is true\", () => {",
+									"    pm.expect(jsonData.success).to.equal(true);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6cd3a379-3cbd-4bf4-b5b6-3fc7fc2d81f6",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"yuli\" + new Date().getTime() + \"@gmail.com\");",
+									"pm.environment.set(\"userPassword\", \"yuliaR12345\");",
+									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n    \"email\": \"{{userEmail}}\",\n\t\"name\": \"Yuliya Ra\",\n\t\"password\": \"{{userPassword}}\",\n\t\"phone\": \"{{userPhone}}\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "817ab7bf-5df0-475e-9eb5-a1f24ac903ac",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"pm.environment.set(\"userId\", jsonData.userId);",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.response.to.be.ok;",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"Auth success\", function (){",
+									"    pm.expect(jsonData.message).to.equal(\"Auth success\");",
+									"});",
+									"",
+									"pm.test(\"Response includes token\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"token\");",
+									"});",
+									"",
+									"pm.test(\"User name is per requirements\", function(){",
+									"    pm.expect(jsonData.user.name).to.match( /^[A-Z][a-z]{1,15}\\s[A-Z][a-z]{1,15}$/);",
+									"});",
+									"",
+									"pm.test(\"UserID length to be 24 characters\", function(){",
+									"    pm.expect(jsonData.user._id).to.have.lengthOf(24);",
+									"});",
+									"",
+									"pm.test(\"User phone number is per requirements\", function() {",
+									"    pm.expect(jsonData.user.phone).to.match(/^\\+[0-9]{11,12}$/); ",
+									"});",
+									"",
+									"pm.test(\"User email is per requirements\", function(){",
+									"    pm.expect(jsonData.user.email).to.match(/[a-z0-9!#$%&‘*+/=?^_{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);",
+									"}); ",
+									"",
+									"pm.test(\"User role is not admin\", () => {",
+									"    pm.expect(jsonData.user.roles[0]).to.not.equal(\"admin\");",
+									"});",
+									"",
+									"pm.test(\"The acl length is 1\", () => {",
+									"    pm.expect(jsonData.acl).to.have.lengthOf(1);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9484bd7c-ce5c-4f67-8fa5-9d2d3f7acb63",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{userEmail}}\",\n\t\"password\": \"{{userPassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9a998f3-ddd1-4aa7-80c8-262da6cb2e6b",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.response.to.be.ok;",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"Success is true\", () => {",
+									"    pm.expect(jsonData.success).to.equal(true);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"email\": \"{{userEmail}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update self",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"about\": \"hello, this is about me AUG20\",\n\t\"goals\": \"this is a goal - aug20\",\n\t\"englishLevel\": \"no\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update byID",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"roles\": [\n\t\t\"admin\"\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Negative tests",
+			"item": [
+				{
+					"name": "Register - new host",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12827964-5826-4eff-b8ea-3562872fea5c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"//pm.environment.set(\"diaryId\", jsonData.diaryId);",
+									"",
+									"pm.test(\"Status code is OK\", function () {",
+									"   // pm.response.to.have.status(201);",
+									"    pm.response.to.be.success;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Success is true\", () => {",
+									"    pm.expect(jsonData.success).to.equal(true);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6cd3a379-3cbd-4bf4-b5b6-3fc7fc2d81f6",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"yuli\" + new Date().getTime() + \"@gmail.com\");",
+									"pm.environment.set(\"userPassword\", \"yuliaR12345\");",
+									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n    \"email\": \"{{userEmail}}\",\n\t\"name\": \"Yuliya Ra\",\n\t\"password\": \"{{userPassword}}\",\n\t\"phone\": \"{{userPhone}}\"\n\t\n}"
+						},
+						"url": {
+							"raw": "https://server-stage.pasv.us/user",
+							"protocol": "https",
+							"host": [
+								"server-stage",
+								"pasv",
+								"us"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register (no phone)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12827964-5826-4eff-b8ea-3562872fea5c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Status code is error 4**\", function () {",
+									"pm.response.to.be.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6cd3a379-3cbd-4bf4-b5b6-3fc7fc2d81f6",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"yuli\" + new Date().getTime() + \"@gmail.com\");",
+									"pm.environment.set(\"userPassword\", \"yuliaR12345\");",
+									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n    \"email\": \"{{userEmail}}\",\n\t\"name\": \"Yuliya Ra\",\n\t\"password\": \"{{userPassword}}\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register (no password)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12827964-5826-4eff-b8ea-3562872fea5c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Status code is error 5**\", function () {",
+									"pm.response.to.be.serverError;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6cd3a379-3cbd-4bf4-b5b6-3fc7fc2d81f6",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"yuli\" + new Date().getTime() + \"@gmail.com\");",
+									"pm.environment.set(\"userPassword\", \"yuliaR12345\");",
+									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n    \"email\": \"{{userEmail}}\",\n\t\"name\": \"Yuliya Ra\",\n\t\"phone\": \"{{userPhone}}\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register (no name)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12827964-5826-4eff-b8ea-3562872fea5c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Status code is error 4**\", function () {",
+									"pm.response.to.be.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"Payload is present\", () => {",
+									"    pm.expect(jsonData.payload).to.equal(jsonData.payload);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6cd3a379-3cbd-4bf4-b5b6-3fc7fc2d81f6",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"yuli\" + new Date().getTime() + \"@gmail.com\");",
+									"pm.environment.set(\"userPassword\", \"yuliaR12345\");",
+									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n    \"email\": \"{{userEmail}}\",\n\t\"password\": \"{{userPassword}}\",\n\t\"phone\": \"{{userPhone}}\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register (no email)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12827964-5826-4eff-b8ea-3562872fea5c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Status code is error 4**\", function () {",
+									"pm.response.to.be.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"Payload is present\", () => {",
+									"    pm.expect(jsonData.payload).to.equal(jsonData.payload);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6cd3a379-3cbd-4bf4-b5b6-3fc7fc2d81f6",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"yuli\" + new Date().getTime() + \"@gmail.com\");",
+									"pm.environment.set(\"userPassword\", \"yuliaR12345\");",
+									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Yuliya Ra\",\n\t\"password\": \"{{userPassword}}\",\n\t\"phone\": \"{{userPhone}}\"\n\t\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login (wrong email & password)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "817ab7bf-5df0-475e-9eb5-a1f24ac903ac",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"pm.environment.set(\"userId\", jsonData.userId);",
+									"",
+									"pm.test(\"Status code is error 4**\", function () {",
+									"pm.response.to.be.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"Payload is present\", () => {",
+									"    pm.expect(jsonData.payload).to.equal(jsonData.payload);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9484bd7c-ce5c-4f67-8fa5-9d2d3f7acb63",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"email\": \"hellowrong@tut.by\",\n\t\"password\": \"hellowrongpw\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login (wrong password)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "817ab7bf-5df0-475e-9eb5-a1f24ac903ac",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"pm.environment.set(\"userId\", jsonData.userId);",
+									"",
+									"pm.test(\"Status code is error 4**\", function () {",
+									"pm.response.to.be.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9484bd7c-ce5c-4f67-8fa5-9d2d3f7acb63",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"email\": \"{{userEmail}}\",\n\t\"password\": \"hellopassword\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login (wrong email)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "817ab7bf-5df0-475e-9eb5-a1f24ac903ac",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"pm.environment.set(\"userId\", jsonData.userId);",
+									"",
+									"pm.test(\"Status code is error 4**\", function () {",
+									"pm.response.to.be.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"Payload is present\", () => {",
+									"    pm.expect(jsonData.payload).to.equal(jsonData.payload);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9484bd7c-ce5c-4f67-8fa5-9d2d3f7acb63",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t \"email\": \"email1wong@tut.by\",\n\t\"password\": \"{{userPassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password (no token)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9a998f3-ddd1-4aa7-80c8-262da6cb2e6b",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.response.to.be.ok;",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function(){",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"Success is true\", () => {",
+									"    pm.expect(jsonData.success).to.equal(true);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"email\": \"{{userEmail}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password (wrong email)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9a998f3-ddd1-4aa7-80c8-262da6cb2e6b",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Status code is error 4**\", function () {",
+									"pm.response.to.be.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"Payload is present\", () => {",
+									"    pm.expect(jsonData.payload).to.equal(jsonData.payload);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"email\": \"shmest@email.com\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New password (hash is empty)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eb26b6dd-7e56-4b93-b138-82534227b649",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Status code is error 4**\", function () {",
+									"pm.response.to.be.clientError;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hash\": \"\",\n    \"userId\": \"{{userId}}\",\n    \"password\": \"{{userPassword}} +1\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New password (empty password)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eb26b6dd-7e56-4b93-b138-82534227b649",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Status code is error 4**\", function () {",
+									"pm.response.to.be.clientError;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hash\": \"{{hash}}\",\n    \"userId\": \"{{userId}}\",\n    \"password\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New password (same password is provided)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eb26b6dd-7e56-4b93-b138-82534227b649",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Status code is error 4**\", function () {",
+									"pm.response.to.be.clientError;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hash\": \"{{hash}}\",\n    \"userId\": \"{{userId}}\",\n    \"password\": \"{{userPassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users (without token)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1eba77eb-88bf-4934-a646-0b5c381ad80b",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is error 401\", function () {",
+									"pm.response.to.be.unauthorized;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by Id (wrong user id)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1dec51be-4ae2-4459-a8ee-a9b1606b8217",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is error 401\", function () {",
+									"pm.response.to.be.unauthorized;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/user/5d5ad6f97712de0038bc3acb",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"5d5ad6f97712de0038bc3acb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by Id (empty token)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0db432c5-2a60-4228-a4cb-808bce923dbd",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is error 401\", function () {",
+									"pm.response.to.be.unauthorized;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update self (no token)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3bc8590-ac7b-4ad2-b938-7eeeca8afb20",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is error 401\", function () {",
+									"pm.response.to.be.unauthorized;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Message is string\", function (){",
+									"    pm.expect(jsonData.message).to.be.a(\"string\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"about\": \"hello, this is about me AUGUST15- AUG20\",\n\t\"goals\": \"this is a goal - aug20\",\n\t\"englishLevel\": \"medium\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "aa832229-bcf1-4a4f-b532-5c190e079d74",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6ed9bfbe-9f58-4e2a-ba0f-5b5265b29145",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
