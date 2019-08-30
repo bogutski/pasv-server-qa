@@ -1,0 +1,518 @@
+{
+	"info": {
+		"_postman_id": "08b6a97e-fa87-4848-aafc-3be7b2e42960",
+		"name": "USER [Admin]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin run",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "538fca9f-7228-47b7-94bb-281fc89b3747",
+								"exec": [
+									"const jsonData = pm.response.json();\r\rpm.environment.set(\"token\", jsonData.token);\r\rpm.environment.set(\"userId\", jsonData.userId);\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.message).to.equal(\"Auth success\");\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"12345\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Reset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "538fca9f-7228-47b7-94bb-281fc89b3747",
+								"exec": [
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{userEmail}}\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get Hash",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ef10b88c-730e-40e0-83a2-5c8d66e28485",
+								"exec": [
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.environment.set(\"hash\", jsonData.hash);\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/hash/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"hash",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Reset Valid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "538fca9f-7228-47b7-94bb-281fc89b3747",
+								"exec": [
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": \"{{userId}}\",\n\t\"hash\": \"{{hash}}\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/valid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"valid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Reset New",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "538fca9f-7228-47b7-94bb-281fc89b3747",
+								"exec": [
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"hash\": \"{{hash}}\",\n\t\"userId\": \"{{userId}}\",\n\t\"password\": \"12345\"\n}\n"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6e52f262-36b9-48f7-adbf-7fd39b21a260",
+								"exec": [
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d908c1f-7ea0-410e-b16c-2def03fd33e6",
+								"exec": [
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Self",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2eef42a0-07c0-4f4b-b364-fa81725442a3",
+								"exec": [
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test Kate\",\n    \"phone\": \"+18993331009\",\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"123\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6121d683-bd78-4c09-b001-639f966ea5bd",
+								"exec": [
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roles\": [\n        \"admin\",\n        \"student\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "372df41d-61d4-4ea9-9be6-b4cca5277c5e",
+								"exec": [
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b7cae031-b3b0-424b-8bb2-0c2ffe68f38a",
+						"exec": [
+							"pm.environment.set(\"userEmail\", \"kate\" + new Date().getTime() + \"@gmail.com\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c367b3a-f63d-47cd-98d8-31f82c6314bd",
+						"exec": [
+							"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(201);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Kate\",\n    \"phone\": \"+18993331009\",\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"12345\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
