@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "222f3aab-5d82-449f-b614-4141325e0f5e",
+		"name": "DAIRY",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dfc388c8-09aa-44e6-ada1-73c0a2ab95bd",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 201 Created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"pm.test(\"Content-Type header value is application/json\", function () {",
+							"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							"",
+							"pm.test(\"Response contains massege and length > 0\", function () {",
+							"    pm.expect(jsonData.message).to.have.length > 0;",
+							"});",
+							"",
+							"pm.test(\"Response contains diary Id and length > 0\", function () {",
+							"    pm.expect(jsonData.payload.diaryId).to.have.length > 0;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"I created my first diary at STAGE server\",\n    \"labels\": [\n        \"help_classmates\",\n        \"code_practice\",\n        \"read_documentation\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/diary",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"diary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dairy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "699f483d-708b-4856-bab0-2d692e5e3f3b",
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header value is application/json\", function () {\r",
+							"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/diary",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"diary"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
