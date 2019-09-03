@@ -858,7 +858,27 @@
 							"script": {
 								"id": "28f8bd2c-524a-411b-b985-3dd9ef2ebc15",
 								"exec": [
-									""
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status has status 4**\", function() {",
+									"    pm.response.to.have.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Response contains payload\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"payload\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -868,9 +888,7 @@
 							"script": {
 								"id": "6d5be5df-2345-4a1f-bc7b-9b095b6cbb6b",
 								"exec": [
-									"pm.environment.set(\"email\", \"ruslan\" + new Date().getTime() + \"@gmail.com\");",
-									"pm.environment.set(\"userPassword\", \"&12345R\");",
-									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -910,7 +928,27 @@
 							"script": {
 								"id": "28f8bd2c-524a-411b-b985-3dd9ef2ebc15",
 								"exec": [
-									""
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status has status 4**\", function() {",
+									"    pm.response.to.have.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Response contains payload\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"payload\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -920,9 +958,7 @@
 							"script": {
 								"id": "6d5be5df-2345-4a1f-bc7b-9b095b6cbb6b",
 								"exec": [
-									"pm.environment.set(\"email\", \"ruslan\" + new Date().getTime() + \"@gmail.com\");",
-									"pm.environment.set(\"userPassword\", \"&12345R\");",
-									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -962,7 +998,27 @@
 							"script": {
 								"id": "28f8bd2c-524a-411b-b985-3dd9ef2ebc15",
 								"exec": [
-									""
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status has status 4**\", function() {",
+									"    pm.response.to.have.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Response contains payload\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"payload\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -972,9 +1028,7 @@
 							"script": {
 								"id": "6d5be5df-2345-4a1f-bc7b-9b095b6cbb6b",
 								"exec": [
-									"pm.environment.set(\"email\", \"ruslan\" + new Date().getTime() + \"@gmail.com\");",
-									"pm.environment.set(\"userPassword\", \"&12345R\");",
-									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1014,7 +1068,27 @@
 							"script": {
 								"id": "28f8bd2c-524a-411b-b985-3dd9ef2ebc15",
 								"exec": [
-									""
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status has status 4**\", function() {",
+									"    pm.response.to.have.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Response contains payload\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"payload\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1024,9 +1098,7 @@
 							"script": {
 								"id": "6d5be5df-2345-4a1f-bc7b-9b095b6cbb6b",
 								"exec": [
-									"pm.environment.set(\"email\", \"ruslan\" + new Date().getTime() + \"@gmail.com\");",
-									"pm.environment.set(\"userPassword\", \"&12345R\");",
-									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1066,7 +1138,23 @@
 							"script": {
 								"id": "28f8bd2c-524a-411b-b985-3dd9ef2ebc15",
 								"exec": [
-									""
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code 400 (Bad request)\", function() {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Message has length\", () => {",
+									"    pm.expect(jsonData.message).to.have.length > 0;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1076,9 +1164,7 @@
 							"script": {
 								"id": "6d5be5df-2345-4a1f-bc7b-9b095b6cbb6b",
 								"exec": [
-									"pm.environment.set(\"email\", \"ruslan\" + new Date().getTime() + \"@gmail.com\");",
-									"pm.environment.set(\"userPassword\", \"&12345R\");",
-									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1118,7 +1204,27 @@
 							"script": {
 								"id": "28f8bd2c-524a-411b-b985-3dd9ef2ebc15",
 								"exec": [
-									""
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status has status 4**\", function() {",
+									"    pm.response.to.have.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Response contains payload\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"payload\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1128,9 +1234,7 @@
 							"script": {
 								"id": "6d5be5df-2345-4a1f-bc7b-9b095b6cbb6b",
 								"exec": [
-									"pm.environment.set(\"email\", \"ruslan\" + new Date().getTime() + \"@gmail.com\");",
-									"pm.environment.set(\"userPassword\", \"&12345R\");",
-									"pm.environment.set(\"userPhone\", \"+\" + Math.floor(Math.random() * 100000000000));"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1148,7 +1252,143 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n\t\"email\": \"test150@test.com\", \r\n\t\"name\": \"\", \r\n\t\"password\": \"11111\", \r\n\t\"phone\": \"+17778889922\" \r\n}"
+							"raw": "{ \r\n\t\"email\": \"test155@test.com\", \r\n\t\"name\": \"\", \r\n\t\"password\": \"11111\", \r\n\t\"phone\": \"+17778889922\" \r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register (Email exist)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28f8bd2c-524a-411b-b985-3dd9ef2ebc15",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is 409 conflict\", function() {",
+									"    pm.response.to.have.status(409);",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Response contains name\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"payload\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6d5be5df-2345-4a1f-bc7b-9b095b6cbb6b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n\t\"email\": \"admin@test.com\", \r\n\t\"name\": \"Test Testov\", \r\n\t\"password\": \"11111\", \r\n\t\"phone\": \"+17778889922\" \r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register (Name and password is mssing)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28f8bd2c-524a-411b-b985-3dd9ef2ebc15",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is 500 Internal Server Error\", function() {",
+									"    pm.response.to.have.status(500);",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Message has length\", () => {",
+									"    pm.expect(jsonData.message).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6d5be5df-2345-4a1f-bc7b-9b095b6cbb6b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n\t\"email\": \"testMissingName@test.com\", \r\n\t\"phone\": \"+17778889922\" \r\n}"
 						},
 						"url": {
 							"raw": "{{host}}/user",
@@ -1170,10 +1410,27 @@
 							"script": {
 								"id": "45d71f05-ad97-4493-ac0c-66330ad7f425",
 								"exec": [
-									"const jsonData = pm.response.json();\r",
-									"\r",
-									"pm.environment.set(\"token\", jsonData.token);\r",
-									"pm.environment.set(\"userId\", jsonData.userId);"
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code 401 (Unauthorized)\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Response contains payload\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"payload\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1207,6 +1464,67 @@
 					"response": []
 				},
 				{
+					"name": "Login (Unregistered)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "45d71f05-ad97-4493-ac0c-66330ad7f425",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status has status 4**\", function() {",
+									"    pm.response.to.have.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Response contains name\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"payload\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n  \"email\": \"testUnregistetred@gmail.com\", \r\n  \"password\": \"{{userPassword}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Login (Empty password)",
 					"event": [
 						{
@@ -1214,10 +1532,23 @@
 							"script": {
 								"id": "45d71f05-ad97-4493-ac0c-66330ad7f425",
 								"exec": [
-									"const jsonData = pm.response.json();\r",
-									"\r",
-									"pm.environment.set(\"token\", jsonData.token);\r",
-									"pm.environment.set(\"userId\", jsonData.userId);"
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status has status 4**\", function() {",
+									"    pm.response.to.have.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1252,6 +1583,38 @@
 				},
 				{
 					"name": "Reset password (Empty email)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9b190b3-484c-427d-8181-7ffb4a4e3935",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status has status 4**\", function() {",
+									"    pm.response.to.have.error;",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Response contains payload\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"payload\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1282,7 +1645,39 @@
 					"response": []
 				},
 				{
-					"name": "Reset password with empty email",
+					"name": "Reset password (Incorrect email) Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9b190b3-484c-427d-8181-7ffb4a4e3935",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code 400 (Bad request)\", function() {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Response contains payload\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"payload\");",
+									"});",
+									"",
+									"pm.test(\"Payload has length\", () => {",
+									"    pm.expect(jsonData.payload).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1295,7 +1690,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{email}}\"\n}"
+							"raw": "{ \r\n  \"email\": \"test.test.com\"\r\n}"
 						},
 						"url": {
 							"raw": "{{host}}/user/password/reset/request",
@@ -1314,6 +1709,34 @@
 				},
 				{
 					"name": "Reset Password Valid (empty hash)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "23d9e4f5-52f9-47f6-a71d-5ba359034a8c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code 404 (Bad request)\", function() {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Message has length\", () => {",
+									"    pm.expect(jsonData.message).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1338,6 +1761,309 @@
 								"password",
 								"reset",
 								"valid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Reset New (Incorrect userId)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "23d9e4f5-52f9-47f6-a71d-5ba359034a8c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code 400 (Bad request)\", function() {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Message has length\", () => {",
+									"    pm.expect(jsonData.message).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": \"sdkbwehjy2dweiwe23\",\n\t\"hash\": \"{{Hash}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All (token is missing)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "23d9e4f5-52f9-47f6-a71d-5ba359034a8c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code 401 (Unauthorized)\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"pm.test(\"Success is true\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Message has length\", () => {",
+									"    pm.expect(jsonData.message).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH Update Self (Token is missing)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "23d9e4f5-52f9-47f6-a71d-5ba359034a8c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code 401 (Unauthorized)\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"pm.test(\"Success is true\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Message has length\", () => {",
+									"    pm.expect(jsonData.message).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user\": {\r\n        \"about\": \"This is me\"\r\n\t}\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH Update by Id (Token is missimg)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "23d9e4f5-52f9-47f6-a71d-5ba359034a8c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code 401 (Unauthorized)\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"pm.test(\"Success is true\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Message has length\", () => {",
+									"    pm.expect(jsonData.message).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "23d9e4f5-52f9-47f6-a71d-5ba359034a8c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code 401 (Unauthorized)\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"pm.test(\"Success is true\", () => {",
+									"    pm.expect(jsonData.success).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header value is application/json\", function () {",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+									"});",
+									"",
+									"pm.test(\"Message has length\", () => {",
+									"    pm.expect(jsonData.message).to.have.length > 0;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
 							]
 						}
 					},
