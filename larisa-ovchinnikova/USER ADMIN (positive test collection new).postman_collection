@@ -1,0 +1,736 @@
+{
+	"info": {
+		"_postman_id": "b40f663f-a144-4758-844a-549cafeb3981",
+		"name": "USER ADMIN (positive test collection)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"token\", jsonData.token);",
+							"",
+							"pm.environment.set(\"userId\", jsonData.userId);",
+							"",
+							"pm.test(\"Status is correct (200 OK)\", () => {",
+							"    pm.response.to.have.status (200);",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData.message.length) > 0;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success) === true;",
+							"});",
+							"",
+							"pm.test(\"Token is displayed\", () => {",
+							"    pm.expect(jsonData.token.length) > 0;",
+							"});",
+							"",
+							"pm.test(\"Information about user is displayed\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"user\");",
+							"});",
+							"",
+							"pm.test(\"User name is correct\", () => {",
+							"    pm.expect(jsonData.user.name).to.match(/^[A-Z][a-z]{1,15}\\s[A-Z][a-z]{1,15}$/);",
+							"});",
+							"",
+							"pm.test(\"Phone number is correct\", () => {",
+							"    pm.expect(jsonData.user.phone).to.match(/^\\+[0-9]{11,12}/);",
+							"});",
+							"",
+							"pm.test(\"Email is correct\", () => {pm.expect(jsonData.user.email).to.match(/[a-z0-9!#$%&‘+/=?^{|}~-]+(?:\\.[a-z0-9!#$%&'+/=?^{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);",
+							"});",
+							"",
+							"pm.test(\"UserId is displayed\", () => {",
+							"    pm.expect(jsonData.userId.length) === 24;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " { \n \t\"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n }"
+				},
+				"url": {
+					"raw": "{{host}}/user/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Password Reset Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct (200 OK)\", () => {",
+							"    pm.response.to.have.status (200);",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success) === true;",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " { \n \t\"email\": \"{{userEmail}}\"\n }"
+				},
+				"url": {
+					"raw": "{{host}}/user/password/reset/request",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"password",
+						"reset",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User get hash",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6afcdbc5-c0b0-47eb-a704-8dc5ca55ff8b",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"hash\", jsonData.hash);",
+							"",
+							"pm.test(\"Status is correct (200 OK)\", () => {",
+							"    pm.response.to.have.status (200);",
+							"});",
+							"",
+							"pm.test(\"Response includes hash\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"hash\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/user/hash/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"hash",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Password Reset Valid",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct (200 OK)\", () => {",
+							"    pm.response.to.have.status (200);",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success) === true;",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " { \n \t\"userId\": \"{{userId}}\",\n \t\"hash\": \"{{hash}}\"\n }"
+				},
+				"url": {
+					"raw": "{{host}}/user/password/reset/valid",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"password",
+						"reset",
+						"valid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Password Reset New",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct (200 OK)\", () => {",
+							"    pm.response.to.have.status (200);",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success) === true;",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " { \n \t\"userId\": \"{{userId}}\",\n \t\"hash\": \"{{hash}}\",\n \t\"password\": \"{{userPassword}}\"\n }"
+				},
+				"url": {
+					"raw": "{{host}}/user/password/reset/new",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"password",
+						"reset",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Get All",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", () => {",
+							"    pm.response.to.have.status (200);",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success) === true;",
+							"});",
+							"",
+							"pm.test(\"Response includes payload(information about all users)\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"payload\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Get by Id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", () => {",
+							"    pm.response.to.have.status (200);",
+							"});",
+							"",
+							"pm.test(\"Response includes Id\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"_id\");",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Update Self",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", () => {",
+							"    pm.response.to.have.status (200);",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success) === true;",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"larisa22345@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"+17075901869\",\n    \"links\": {\n        \"linkedIn\": \"https://www.linkedin.com/in/larisa\",\n        \"resume\": \"https://docs.google.com/document/d/1KkEO4vyCnR5VNf9y4A5CvQhwMuU5J_JrF0xRdl9F3r4/edit\",\n        \"github\": \"https://github.com/larisa\",\n        \"facebook\": \"https://www.facebook.com/larisa\",\n        \"codewarsUsername\": \"Lara Lara\"\n    },\n    \"about\": \"QA\",\n    \"goals\": \"To find interesting job\",\n    \"englishLevel\": \"Intermediate\",\n    \"roles\": [\"admin\"]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Update by Id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", () => {",
+							"    pm.response.to.have.status (200);",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success) === true;",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"roles\": [\"admin\", \"student\"]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Delete by Id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status is correct\", () => {",
+							"    pm.response.to.have.status (200);",
+							"});",
+							"",
+							"pm.test(\"Response includes message\", () => {",
+							"    pm.expect(jsonData).to.include.keys(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Success is true\", () => {",
+							"    pm.expect(jsonData.success) === true;",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2f6d8848-5e15-4a8e-b9fc-5554b542b12c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1a11ab8b-90b1-4ee5-92e7-fc27b66aa300",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
