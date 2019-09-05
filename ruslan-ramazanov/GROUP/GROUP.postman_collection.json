@@ -1,0 +1,251 @@
+{
+	"info": {
+		"_postman_id": "75d373ba-25bb-4896-a663-52c10510c91d",
+		"name": "GROUP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create group",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "74c26c6e-d862-49dd-b2c7-4ad43337f1fb",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "388f4ebc-062a-4156-879e-b1f95815a328",
+						"exec": [
+							"const jsonData = pm.response.json();\r\rpm.environment.set(\"groupId\", jsonData.payload.groupId);\r\rpm.test(\"Status code is 201 Created\", function () {\r    pm.response.to.have.status(201);\r});\r\rpm.test(\"Response time is less than 1000ms\", function () {\r    pm.expect(pm.response.responseTime).to.be.below(2000);\r});\r\rpm.test(\"Response contains massege and length > 0\", function () {\r    pm.expect(jsonData.message).to.have.length > 0;\r});\r\rpm.test(\"Response contains diary Id and length > 0\", function () {\r    pm.expect(jsonData.payload.groupId).to.have.length > 0;\r});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\t    \"name\": \"Ruslan Test\",\r\n\t\t\"description\": \"My second group\",\r\n        \"accessType\": \"members\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/group",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"group"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit group",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\"name\": \"Test Ruslan\",\n\t\t\"description\": \"My group\",\n        \"accessType\": \"members\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/group/edit/{{groupId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"group",
+						"edit",
+						"{{groupId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All groups",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/group",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All groups by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/group",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Full by ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/group/full/{{groupId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"group",
+						"full",
+						"{{groupId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete group",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/group/unlink/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"group",
+						"unlink",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

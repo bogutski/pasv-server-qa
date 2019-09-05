@@ -1,0 +1,3215 @@
+{
+	"info": {
+		"_postman_id": "c8d427fa-9d52-45fa-a2ee-8628090e74b3",
+		"name": "USER ADMIN (negative test collection)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Login (negative)",
+			"item": [
+				{
+					"name": "User Login negative - user was unregistered",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (401 Unautorized)\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response includes payload\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"payload\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"password\": \"{{userPassword}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login negative - user was registered with incorrect email",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Email is correct\", () => {pm.expect(jsonData.user.email).to.match(/[a-z0-9!#$%&‘+/=?^{|}~-]+(?:\\.[a-z0-9!#$%&'+/=?^{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasya pupkin@gmail.com\",\n    \"password\": \"{{userPassword}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login negative - password is not correct",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"",
+									"pm.environment.set(\"userId\", jsonData.userId);",
+									"",
+									"pm.test(\"Status is correct (401 Unautorized)\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"{{userEmail}}\",\n    \"password\": \"qwerty1\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login negative - password is absent",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"",
+									"pm.environment.set(\"userId\", jsonData.userId);",
+									"",
+									"pm.test(\"Status is correct (401 Unautorized)\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"{{userEmail}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login negative - email is absent",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"",
+									"pm.environment.set(\"userId\", jsonData.userId);",
+									"",
+									"pm.test(\"Status is correct (401 Unautorized)\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n   \"password\": \"{{userPassword}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Password Reset (negative)",
+			"item": [
+				{
+					"name": "User Password Reset negative (incorrect email)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (400 Bad request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"larisa12345.gmail.com\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Password Reset negative (email is not exist) ",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (400 Bad request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"request"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Password Reset  Valid (negative)",
+			"item": [
+				{
+					"name": "User Password Reset Valid (negative) UserId doesn't match DB",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.fail) === true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"userId\": \"1d65ff896a58b4003839ecc9\",\n \t\"hash\": \"{{hash}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/valid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"valid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Password Reset Valid (negative) hash expired",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.fail) === true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"userId\": \"5d65ff896a58b4003839ecc9\",\n \t\"hash\": \"5d68516883d5d600380e69f8\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/valid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"valid"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c61782af-acbf-41ac-b5d8-17e5c8911b8c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2ab1e01-b7a4-4f7f-bc6e-aea1b9fa07a6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "User register (negative)",
+			"item": [
+				{
+					"name": "User Register negative (existed email was entered)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (409 Conflict)\", () => {",
+									"    pm.response.to.have.status (409);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"{{userEmail}}\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"{{userPassword}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid email)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin.gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"{{userPassword}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (email  includes space)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasya pupkin@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"{{userPassword}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (password is absent)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (500 Internal Server Error\", () => {",
+									"    pm.response.to.have.status (500);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (password is empty)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (400 Bad request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid password < 5 symbols)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (400 Bad request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"1234\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid name - 1 string)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Lara\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid name - 2 strings divided by ',')",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Lara,Lara\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid name > 15 symbols)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Laralaralaralara Laralaralaralara\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid name > symbols in Uppercase included)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"LaraLara LaraLara\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid name  - empty string)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid name  - russian letters)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Вася Пупкин\",\n    \"phone\": \"{{userPhone}}\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid phone '+' absent)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"19541111111\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid phone < 11 digits)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"+195411111\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid phone > 12 digits) ",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"+19541111122222\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid phone - contains letters)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"+1954111111a\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register negative (invalid phone - contains dashes)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									"pm.environment.set(\"userEmail\", \"larisa22345@gmail.com\");",
+									"",
+									"pm.environment.set(\"userPhone\", \"+11234567891\");",
+									"",
+									"pm.environment.set(\"userPassword\", \"qwerty\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Not found)\", () => {",
+									"    pm.response.to.have.status (404);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 5000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"email\": \"vasyapupkin@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"+1954-111-11-11\",\n    \"password\": \"{{userPhone}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Password Reset New (negative)",
+			"item": [
+				{
+					"name": "User Password Reset New (negative) incorrect password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (400 Bad Request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.success) === true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"userId\": \"{{userId}}\",\n \t\"hash\": \"5d68516883d5d600380e69f8\",\n \t\"password\": \"1234\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "!!User Password Reset New (negative) password is absent",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (404 Bad Request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.success) === true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"userId\": \"{{userId}}\",\n \t\"hash\": \"5d68516883d5d600380e69f8\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Password Reset New (negative) password is empty string",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (400 Bad Request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.success) === true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"userId\": \"{{userId}}\",\n \t\"hash\": \"5d68516883d5d600380e69f8\",\n \t\"password\": \"\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Password Reset New (negative) userId is absent",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (400 Bad Request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.success) === true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"hash\": \"5d68516883d5d600380e69f8\",\n \t\"password\": \"1234\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Password Reset New (negative) hash is absent",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (400 Bad Request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.success) === true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"userId\": \"{{userId}}\",\n  \t\"password\": \"{{userPassword}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Password Reset New (negative) incorrect userId",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (400 Bad Request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.success) === true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"userId\": \"1d65ff896a58b4003839ecc9\",\n \t\"hash\": \"5d68516883d5d600380e69f8\",\n \t\"password\": \"{{userPassword}}\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Password Reset New (negative) incorrect hash",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct (400 Bad Request)\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.success) === true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \n \t\"userId\": \"{{userId}}\",\n \t\"hash\": \"1d68516883d5d600380e69f8\",\n \t\"password\": \"123456\"\n }"
+						},
+						"url": {
+							"raw": "{{host}}/user/password/reset/new",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"password",
+								"reset",
+								"new"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Get All (negative)",
+			"item": [
+				{
+					"name": "User Get All (negative) - token is missing",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 401 Unautorized\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.success) === true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get All (negative) - token is incorrect",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 401 Unautorized\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.success) === true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "ayJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxhcmlzYTEyMzQ1QGdtYWlsLmNvbSIsInVzZXJJZCI6IjVkNjVmZjg5NmE1OGI0MDAzODM5ZWNjOSIsImNvZGV3YXJzSWQiOm51bGwsImlhdCI6MTU2NzEyMDgyMiwiZXhwIjoxNTY3MzgwMDIyfQ.SLc5MpFNWfUpkNM4r8lv3z_2HxXgoUoV0p7mHIja-IE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get All (negative) - role is student",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 500 Internal server error\", () => {pm.response.to.have.status (500);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.success) === true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Get by Id (negative)",
+			"item": [
+				{
+					"name": "User Get by Id (negative) token is missing",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 401 Unauthorized\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.fail) === true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Get by Id (negative) role is student",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 401 Unauthorized\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.fail) === true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Update self (negative)",
+			"item": [
+				{
+					"name": "User Update Self (negative) token is missing",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 401 Unauthorized\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.fail) === true;",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"larisa12345@gmail.com\",\n    \"name\": \"Lara Lara\",\n    \"phone\": \"+17075901869\",\n    \"links\": {\n        \"linkedIn\": \"https://www.linkedin.com/in/larisa\",\n        \"resume\": \"https://docs.google.com/document/d/1KkEO4vyCnR5VNf9y4A5CvQhwMuU5J_JrF0xRdl9F3r4/edit\",\n        \"github\": \"https://github.com/larisa\",\n        \"facebook\": \"https://www.facebook.com/larisa\",\n        \"codewarsUsername\": \"Lara Lara\"\n    },\n    \"about\": \"QA\",\n    \"goals\": \"To find interesting job\",\n    \"englishLevel\": \"Intermediate\",\n    \"roles\": [\"admin\"]\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Update Self (negative) all fields are missing ",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 400 Bad Request\", () => {",
+									"    pm.response.to.have.status (400);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.fail) === true;",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Update Self (negative) only one field",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 401 Unauthorized\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.fail) === true;",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"larisa12345@gmail.com\",\n    \"name\": \"Larisa Larisa\",\n    \"phone\": \"+17075901869\",\n    \"roles\": [\"admin\"]\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Update by Id (negative)",
+			"item": [
+				{
+					"name": "User Update by Id (negative) token is missing",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 401 Unauthorized\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"roles\": [\"admin\", \"student\"]\n}"
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Delete by Id (negative)",
+			"item": [
+				{
+					"name": "User Delete by Id (negative) ) token is missing",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 401 Unauthorized\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.fail) === true;",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{userId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Delete by Id (negative) ) userId is incorrect",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2942c209-0d59-4139-9397-36bd6e7ca9de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6c8faf07-3a18-4a3f-9b50-ae96743e1235",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct 401 Unauthorized\", () => {",
+									"    pm.response.to.have.status (401);",
+									"});",
+									"",
+									"pm.test(\"Response includes message\", () => {",
+									"    pm.expect(jsonData).to.include.keys(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Success is false\", () => {",
+									"    pm.expect(jsonData.success) === false;",
+									"});",
+									"",
+									"pm.test(\"Fail is true\", () => {",
+									"    pm.expect(jsonData.fail) === true;",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/5d6dc5f8af023b00386c5f3a",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"5d6dc5f8af023b00386c5f3a"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "267b97aa-a375-468a-834c-8659a95ee94e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b0331c76-cb92-4336-bdce-a415fb08fde7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fa72615d-7deb-4a93-892d-b93ed13fcfa1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2bdf467f-61ed-4de8-80ca-3b700c3fb0ca",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
