@@ -35,11 +35,3 @@ pm.test("Content-Type header value is application/json", function () {
        pm.response.to.be.header("Content-Type", "application/json; charset=utf-8");
 });
 ```
-
-*/This is test check tha token has length more that 0*/
-```javascript
-pm.test("Token has length", () => {
-    pm.expect(jsonData.token).to.have.length > 0;
-});
-```
-
