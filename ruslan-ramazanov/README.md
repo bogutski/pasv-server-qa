@@ -1,4 +1,5 @@
 ### Ruslan Ramazanov
+##### Description of Postman test scripts
 
 */ This is test check that header is present/*
 ```javascript
@@ -16,8 +17,8 @@ pm.test("Response contains name", function () {
 
 */ This is test check that phone number's length*/
 ```javascript
-pm.test("Phone length to be 12 symbols", function(){
-    pm.expect(jsonData.user.phone).to.have.lengthOf(12);
+pm.test("Phone number is correct", () => {
+    pm.expect(jsonData.user.phone).to.match(/[0-9]{11,12}$/);
 });
 ```
 
@@ -28,3 +29,9 @@ pm.test("UserID is per requirements", function(){
 });
 ```
 
+*/This is test check that response has JSON type*/
+```javascript
+pm.test("Content-Type header value is application/json", function () {
+       pm.response.to.be.header("Content-Type", "application/json; charset=utf-8");
+});
+```
