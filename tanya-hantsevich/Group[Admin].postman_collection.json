@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "6c28b987-26d1-4ddf-8a17-66d580015c1d",
+		"name": "Group[Admin]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Positive",
+			"item": [
+				{
+					"name": "Post Group Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "825eeedc-6b0b-40f9-b322-5fabdd1c8261",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"pm.environment.set(\"groupId\", jsonData.payload.groupId);",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Success is true\", () => {pm.expect(jsonData.success).to.equal(true);",
+									"});",
+									"",
+									"pm.test(\"Response message is not empty\", () => {",
+									"    pm.expect(jsonData.message.length) > 0;",
+									"});",
+									"    ",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"pm.test(\"The length of GroupId is 24\", () => {pm.expect(jsonData.payload.groupId.length).to.equal(24);",
+									"});",
+									"",
+									"pm.test(\"Returns 24 char alphanumeric groupId\", () => {pm.expect(jsonData.payload.groupId).to.match(/^[a-f0-9A-F]{24}$/);",
+									"    ",
+									"}); ",
+									"",
+									"pm.test(\"response should be okay to process\", function () {",
+									"pm.response.to.not.be.error;",
+									"pm.response.to.not.have.jsonBody(\"error\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Test Group\",\n\t\"description\": \"no description\",\n\t\"accessType\": \"members\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/group",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Group by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "080524a3-1fb0-466e-b261-2acde791ecf5",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Success is true\", () => {pm.expect(jsonData.success).to.equal(true);",
+									"});",
+									"",
+									"pm.test(\"Response message has length larger than 0\", () => {",
+									"    pm.expect(jsonData.message.length) > 0;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"pm.test(\"response should be okay to process\", function () {",
+									"pm.response.to.not.be.error;",
+									"pm.response.to.not.have.jsonBody(\"error\");",
+									"",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Test Group111\",\n\t\"members\": [\"5d658e6062826500382aece4\"],\n\t\"questionGropus\": [\"How are you?\"],\n\t\"slackWebhook\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/group/{{groupId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group",
+								"{{groupId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Groups",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d3bf71c0-7314-437c-ab8a-b5e14bad7a6b",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"    ",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"pm.test(\"response should be okay to process\", function () {",
+									"pm.response.to.not.be.error;",
+									"pm.response.to.not.have.jsonBody(\"error\");",
+									"});",
+									"",
+									"pm.test(\"Response is not empty\", () => {pm.expect(jsonData).to.not.be.empty;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/group",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb3f7ab3-09d9-4bbb-83aa-6fee403b6ad7",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"pm.test(\"Response is not empty\", () => {pm.expect(jsonData).to.not.be.empty;",
+									"});",
+									"",
+									"pm.test(\"response should be okay to process\", function () {",
+									"pm.response.to.not.be.error;",
+									"pm.response.to.not.have.jsonBody(\"error\");",
+									"});",
+									"",
+									"let savedUserId = pm.environment.get(\"userId\");",
+									"",
+									"pm.test(\"Owner is equal to userId\", () => {",
+									"    for(let i = 0; i < jsonData.length; i++){",
+									"        pm.expect(jsonData[i].owner).to.equal(savedUserId);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/group/{{groupId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group",
+								"{{groupId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group by Id Full",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5f57b6d9-b02a-40e0-83db-a5d65986445c",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"let savedGroupId = pm.environment.get(\"groupId\");",
+									"pm.test(\"Group ID is equal to groupId\", () => {pm.expect(jsonData._id).to.equal(savedGroupId);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"pm.test(\"Response is not empty\", () => {pm.expect(jsonData).to.not.be.empty;",
+									"});",
+									"",
+									"pm.test(\"response should be okay to process\", function () {",
+									"pm.response.to.not.be.error;",
+									"pm.response.to.not.have.jsonBody(\"error\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/group/full/{{groupId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group",
+								"full",
+								"{{groupId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b0160ad-a503-4ce1-8295-3139540e119e",
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status is correct\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Success is true\", () => {pm.expect(jsonData.success).to.equal(true);",
+									"});",
+									"",
+									"pm.test(\"Response message length is larger than 0\", () => {pm.expect(jsonData.message).length > 0;",
+									"});",
+									"    ",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/group/{{groupId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"group",
+								"{{groupId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
