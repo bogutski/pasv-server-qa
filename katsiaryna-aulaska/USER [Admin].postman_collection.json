@@ -16,7 +16,7 @@
 							"script": {
 								"id": "538fca9f-7228-47b7-94bb-281fc89b3747",
 								"exec": [
-									"const jsonData = pm.response.json();\r\rpm.environment.set(\"token\", jsonData.token);\r\rpm.environment.set(\"userId\", jsonData.userId);\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.message).to.equal(\"Auth success\");\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+									"const jsonData = pm.response.json();\r\rpm.environment.set(\"token\", jsonData.token);\r\rpm.environment.set(\"userId\", jsonData.userId);\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Response is JSON\", () => {\r    pm.response.to.be.json;\r});\r\rpm.test(\"Response includes message\", () => {\r    pm.expect(jsonData.message.length) > 0;\r});\r\rpm.test(\"Response includes token\", () => {\r    pm.expect(jsonData.token.length) > 100;\r});\r\rpm.test(\"User name is per requirements\", () => {\r    pm.expect(jsonData.user.name).to.match( /^[A-Z][a-z]{1,15}\\s[A-Z][a-z]{1,15}$/);\r});\r\rpm.test(\"UserID length is 24 characters\", () => {\r    pm.expect(jsonData.user._id).to.have.lengthOf(24);\r});\r\rpm.test(\"User phone number is per requirements\", () => {\r    pm.expect(jsonData.user.phone).to.match(/^\\+[0-9]{11,12}$/); \r});\r\rpm.test(\"User email is per requirements\", () => {\r    pm.expect(jsonData.user.email).to.match(/[a-z0-9!#$%&‘*+/=?^_{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);\r});\r\rpm.test(\"User role is admin\", () => {\r    pm.expect(jsonData.user.roles).to.include(\"admin\");\r});\r\rpm.test(\"The acl length is larger than 10\", () => {\r    pm.expect(jsonData.acl).to.have.lengthOf.at.least(10);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});\r"
 								],
 								"type": "text/javascript"
 							}
@@ -34,7 +34,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"12345\"\n}"
+							"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}"
 						},
 						"url": {
 							"raw": "{{host}}/user/login",
@@ -57,7 +57,7 @@
 							"script": {
 								"id": "538fca9f-7228-47b7-94bb-281fc89b3747",
 								"exec": [
-									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rpm.test(\"Response returns JSON\", () => {\r    pm.response.to.be.json; \r});\r\rpm.test(\"Response includes message\", () => {\r    pm.expect(jsonData.message.length) > 0;\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});"
 								],
 								"type": "text/javascript"
 							}
@@ -98,9 +98,9 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ef10b88c-730e-40e0-83a2-5c8d66e28485",
+								"id": "f00373ab-aeec-439e-bcc1-cb3ce407b129",
 								"exec": [
-									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.environment.set(\"hash\", jsonData.hash);\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+									"const jsonData = pm.response.json();\r\rpm.environment.set(\"hash\", jsonData.hash);\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Response returns JSON\", () => {\r    pm.response.to.be.json; \r});\r\rpm.test(\"Response includes history\", () => {\r    pm.expect(jsonData.history.length) > 0;\r});\r\rpm.test(\"Response includes date\", () => {\r    pm.expect(jsonData.date.length) > 0;\r});\r\rpm.test(\"Response includes hash\", () => {\r    pm.expect(jsonData.hash.length) > 20;\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});"
 								],
 								"type": "text/javascript"
 							}
@@ -150,7 +150,7 @@
 							"script": {
 								"id": "538fca9f-7228-47b7-94bb-281fc89b3747",
 								"exec": [
-									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rpm.test(\"Response returns JSON\", () => {\r    pm.response.to.be.json; \r});\r\rpm.test(\"Response includes message\", () => {\r    pm.expect(jsonData.message.length) > 0;\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});"
 								],
 								"type": "text/javascript"
 							}
@@ -193,7 +193,7 @@
 							"script": {
 								"id": "538fca9f-7228-47b7-94bb-281fc89b3747",
 								"exec": [
-									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rpm.test(\"Response returns JSON\", () => {\r    pm.response.to.be.json; \r});\r\rpm.test(\"Response includes message\", () => {\r    pm.expect(jsonData.message.length) > 0;\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});"
 								],
 								"type": "text/javascript"
 							}
@@ -236,7 +236,7 @@
 							"script": {
 								"id": "6e52f262-36b9-48f7-adbf-7fd39b21a260",
 								"exec": [
-									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rpm.test(\"Response returns JSON\", () => {\r    pm.response.to.be.json; \r});\r\rpm.test(\"Response includes message\", () => {\r    pm.expect(jsonData.message.length) > 0;\r});\r\rpm.test(\"Response includes payload\", () => {\r    pm.expect(jsonData.payload.length) > 0;\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});"
 								],
 								"type": "text/javascript"
 							}
@@ -284,7 +284,7 @@
 							"script": {
 								"id": "1d908c1f-7ea0-410e-b16c-2def03fd33e6",
 								"exec": [
-									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Response returns JSON\", () => {\r    pm.response.to.be.json; \r});\r\rlet currentUserId = pm.environment.get(\"userId\");\r\rpm.test(\"User ID is correct\", () => {\r    pm.expect(jsonData._id).to.equal(currentUserId);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});"
 								],
 								"type": "text/javascript"
 							}
@@ -333,7 +333,7 @@
 							"script": {
 								"id": "2eef42a0-07c0-4f4b-b364-fa81725442a3",
 								"exec": [
-									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rpm.test(\"Response returns JSON\", () => {\r    pm.response.to.be.json; \r});\r\rpm.test(\"Response includes message\", () => {\r    pm.expect(jsonData.message.length) > 0;\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});"
 								],
 								"type": "text/javascript"
 							}
@@ -356,7 +356,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Test Kate\",\n    \"phone\": \"+18993331009\",\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"123\"\n}"
+							"raw": "{\n    \"name\": \"Test Kate\",\n    \"phone\": \"{{userPhone}}\",\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}"
 						},
 						"url": {
 							"raw": "{{host}}/user",
@@ -378,7 +378,7 @@
 							"script": {
 								"id": "6121d683-bd78-4c09-b001-639f966ea5bd",
 								"exec": [
-									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rpm.test(\"Response returns JSON\", () => {\r    pm.response.to.be.json; \r});\r\rpm.test(\"Response includes message\", () => {\r    pm.expect(jsonData.message.length) > 0;\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});"
 								],
 								"type": "text/javascript"
 							}
@@ -424,7 +424,7 @@
 							"script": {
 								"id": "372df41d-61d4-4ea9-9be6-b4cca5277c5e",
 								"exec": [
-									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+									"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(200);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rpm.test(\"Response returns JSON\", () => {\r    pm.response.to.be.json; \r});\r\rpm.test(\"Response includes message\", () => {\r    pm.expect(jsonData.message.length) > 0;\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});"
 								],
 								"type": "text/javascript"
 							}
@@ -472,7 +472,9 @@
 					"script": {
 						"id": "b7cae031-b3b0-424b-8bb2-0c2ffe68f38a",
 						"exec": [
-							"pm.environment.set(\"userEmail\", \"kate\" + new Date().getTime() + \"@gmail.com\");"
+							"pm.environment.set(\"userEmail\", \"kate\" + new Date().getTime() + \"@gmail.com\");",
+							"pm.environment.set(\"userPassword\", \"1234a\");",
+							"pm.environment.set(\"userPhone\", \"+18993331009\");"
 						],
 						"type": "text/javascript"
 					}
@@ -482,7 +484,7 @@
 					"script": {
 						"id": "3c367b3a-f63d-47cd-98d8-31f82c6314bd",
 						"exec": [
-							"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", function() {\r    pm.response.to.have.status(201);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 5000ms\", function () {\r    pm.expect(respTime).to.be.below(5000);\r});"
+							"const jsonData = pm.response.json();\r\rpm.test(\"Status is correct\", () => {\r    pm.response.to.have.status(201);\r});\r\rpm.test(\"Success is true\", () => {\r    pm.expect(jsonData.success).to.equal(true);\r});\r\rpm.test(\"Response returns JSON\", () => {\r    pm.response.to.be.json; \r});\r\rpm.test(\"Response includes message\", () => {\r    pm.expect(jsonData.message.length) > 0;\r});\r\rlet respTime = pm.response.responseTime;\r\rpm.test(\"Response time is less than 2000ms\", () => {\r    pm.expect(respTime).to.be.below(2000);\r});"
 						],
 						"type": "text/javascript"
 					}
@@ -500,7 +502,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Test Kate\",\n    \"phone\": \"+18993331009\",\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"12345\"\n}"
+					"raw": "{  \n\"email\": \"{{userEmail}}\",\n\"password\": \"{{userPassword}}\",\n\"phone\": \"{{userPhone}}\", \n\"name\" : \"Test Kate\" ,\n\"about\" : \"I am Kate\",\n\"englishlevel\": \"Beginner\",\n\"goals\": \"To be QA Engineer\"\n}"
 				},
 				"url": {
 					"raw": "{{host}}/user",
