@@ -35,3 +35,10 @@ pm.test("Content-Type header value is application/json", function () {
        pm.response.to.be.header("Content-Type", "application/json; charset=utf-8");
 });
 ```
+
+*/ This is test check that response has status*/
+```Javascript
+pm.test("Status code is 200 Ok", () => {
+    pm.response.to.have.status(200);
+});
+```
