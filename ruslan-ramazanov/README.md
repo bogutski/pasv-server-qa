@@ -35,3 +35,9 @@ pm.test("Content-Type header value is application/json", function () {
        pm.response.to.be.header("Content-Type", "application/json; charset=utf-8");
 });
 ```
+
+```javascript
+pm.test("Response id success", () => {
+    pm.expect(jsonData.success).to.be.true;
+});
+```
